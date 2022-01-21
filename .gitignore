@@ -348,3 +348,32 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Sbox files
+*.cache
+
+/*.bin
+
+.intermediate
+tools_asset_info.bin
+
+code/accesslist.txt
+code/.vs
+code/Properties
+code/obj
+code/*.csproj
+code/obj
+code/Properties/launchSettings.json
+
+*.csproj
+*.csproj.user
+.vs
+.intermediate
+
+*.*_c
+
+maps/editor/*
+maps/*.vmap
+maps/_bakeresourcecache
+maps/*.vpk
+maps/*.los
