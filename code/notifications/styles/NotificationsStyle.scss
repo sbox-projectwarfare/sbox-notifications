@@ -1,0 +1,213 @@
+Generic {
+    position: absolute;
+    margin: 50 50px;
+    padding: 5 40px;
+    padding-left: 45px;
+    flex-direction: column;
+    //justify-content: center;
+    width: 360px;
+    background-color: rgba( green, 0.3 );
+    border-color: rgba( green, 1);
+    border-style: solid;
+    border-width: 1.5px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+    backdrop-filter: blur( 10px );
+
+    .shape {
+        position: absolute;
+        width: 40px;
+        top: 0%;
+        bottom: -1%;
+        border-radius: 15px;
+        background-color: rgba( green, 0.3 );
+        border-color: rgba( green, 1);
+        border-style: solid;
+        border-width: 1px;
+        backdrop-filter: blur( 10px );
+    }
+
+    .title {
+        font-size: 35px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 5px;
+        padding-left: 0px;
+        font-size: 25px;
+        font-weight: normal;
+    }
+    /*position: absolute;
+    background-color: rgba( green, 0.5 );
+    border-radius: 3px;
+    left: 50px;
+    top: 50px;
+    font-weight: bold;
+    color: white;
+    padding: 0 20px;
+    flex-direction: column;
+    width: 350px;
+
+    .title {
+        font-size: 35px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 10px;
+        padding-left: 0px;
+        font-size: 30px;
+        font-weight: normal;
+    }*/
+}
+
+Hint {
+    position: absolute;
+    margin: 50 50px;
+    padding: 5 40px;
+    padding-left: 45px;
+    flex-direction: column;
+    justify-content: center;
+    width: 360px;
+    background-color: rgba( grey, 0.3 );
+    border-color: rgba(white, 1);
+    border-style: solid;
+    border-width: 1.5px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+    backdrop-filter: blur( 10px );
+
+    .shape {
+        position: absolute;
+        width: 40px;
+        top: 0%;
+        bottom: -1%;
+        border-radius: 15px;
+        background-color: rgba( grey, 0.3 );
+        border-color: rgba( white, 1);
+        border-style: solid;
+        border-width: 1px;
+        backdrop-filter: blur( 10px );
+    }
+
+    .title {
+        font-size: 35px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 5px;
+        padding-left: 0px;
+        font-size: 30px;
+        font-weight: normal;
+    }
+    /*position: absolute;
+    background-color: rgba( grey, 0.5 );
+    border-radius: 3px;
+    left: 50px;
+    top: 50px;
+    font-weight: bold;
+    color: white;
+    padding: 0 20px;
+    flex-direction: column;
+    width: 350px;
+
+    .title {
+        font-size: 35px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 5px;
+        padding-left: 0px;
+        font-size: 30px;
+        font-weight: normal;
+    }*/
+}
+
+Error {
+    position: absolute;
+    margin: 50 50px;
+    padding: 5 40px;
+    padding-left: 45px;
+    flex-direction: column;
+    justify-content: center;
+    width: 360px;
+    background-color: rgba( red, 0.3 );
+    border-color: rgba(red, 1);
+    border-style: solid;
+    border-width: 1.5px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+    backdrop-filter: blur( 10px );
+
+    .shape {
+        position: absolute;
+        width: 40px;
+        top: 0%;
+        bottom: -1%;
+        border-radius: 15px;
+        background-color: rgba( red, 0.3 );
+        border-color: rgba(red, 1);
+        border-style: solid;
+        border-width: 1px;
+        backdrop-filter: blur( 10px );
+    }
+
+    .title {
+        font-size: 25px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 5px;
+        padding-left: 0px;
+        font-size: 30px;
+        font-weight: normal;
+    }
+    /*position: absolute;
+    margin: 50 50px;
+    padding: 5 40px;
+    padding-left: 45px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+    background-color: rgba( red, 0.5 );
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+
+
+    .shape {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 40px;
+        height: 135%;
+        border-radius: 15px;
+        background-color: rgba( white, 0.5 );
+    }
+
+    .title {
+        font-size: 25px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .message {
+        padding-top: 5px;
+        padding-left: 0px;
+        font-size: 30px;
+        font-weight: normal;
+    }*/
+}
