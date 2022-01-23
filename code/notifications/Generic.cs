@@ -13,8 +13,8 @@ namespace Notifications
     {
 		public Generic()
         {
-			Title = Add.Label("Notification", "title");
-			Message = Add.Label("Test notification message\nAnd of course it should support a transition in a new line", "message");
+			Title.Text = "Notification";
+			Message.Text = "Test notification message\nAnd of course it should support a transition in a new line";
         }
     }
 }

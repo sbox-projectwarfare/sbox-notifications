@@ -22,6 +22,9 @@ namespace Sandbox
 	{
 		public MyGame()
 		{
+			if (IsServer)
+            {
+			}
 		}
 
 		/// <summary>
@@ -35,8 +38,9 @@ namespace Sandbox
 			var pawn = new Pawn();
 			client.Pawn = pawn;
 
+			// This must be placed in main game's UI code I think
 			var notifications = new Notifications.NotificationsHud();
-
+			
 			// Get all of the spawnpoints
 			var spawnpoints = Entity.All.OfType<SpawnPoint>();
 
@@ -50,6 +54,9 @@ namespace Sandbox
 				tx.Position = tx.Position + Vector3.Up * 50.0f; // raise it up
 				pawn.Transform = tx;
 			}
+			
+			// How it should be
+			//notifications.show_notification(Notifications.NotificationType.Error, "What the hell, man?", "5FB5");
 		}
 	}
 

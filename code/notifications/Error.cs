@@ -13,7 +13,8 @@ namespace Notifications
 	{
 		public Error()
         {
-			Title = Add.Label("Something is creating error", "title");
+			Title.Text = "Something is creating error";
+			Message.Delete(); // To remove an empty space under the title
         }
 	}
 }

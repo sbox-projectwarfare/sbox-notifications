@@ -13,8 +13,8 @@ namespace Notifications
 	{
 		public Hint()
 		{
-			Title = Add.Label("HINT:", "title");
-			Message = Add.Label("This is a hint message that must notify you about something!", "message");
+			Title.Text = "HINT:";
+			Message.Text = "This is a hint message that must notify you about something!";
 		}
 	}
 }
