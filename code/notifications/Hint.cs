@@ -9,7 +9,7 @@ using Sandbox.UI.Construct;
 
 namespace Notifications
 {
-	public class Hint : NotificationsHud.NotificationBase
+	public class Hint : NotificationBase
 	{
 		public Hint()
 		{

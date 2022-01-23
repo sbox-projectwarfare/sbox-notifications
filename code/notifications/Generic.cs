@@ -9,7 +9,7 @@ using Sandbox.UI.Construct;
 
 namespace Notifications
 {
-	public class Generic : NotificationsHud.NotificationBase
+	public class Generic : NotificationBase
     {
 		public Generic()
         {
