@@ -1,4 +1,9 @@
-﻿
+﻿/*
+ * This is an example game to show you how notification library works
+ * Just press 1, 2, 3 buttons to see 3 basic types of notification - Generic, Hint, Error
+ *
+ */
+
 using Sandbox;
 using Sandbox.UI.Construct;
 using System;
@@ -20,11 +25,15 @@ namespace Sandbox
 	/// </summary>
 	public partial class MyGame : Sandbox.Game
 	{
+		public Notifications.NotificationManager notifications;
+
 		public MyGame()
 		{
-			if (IsServer)
-            {
-			}
+			// Simple test game's UI
+			new GameUi();
+
+			// Initialize notification manager for clients
+			notifications = new Notifications.NotificationManager();
 		}
 
 		/// <summary>
@@ -38,9 +47,6 @@ namespace Sandbox
 			var pawn = new Pawn();
 			client.Pawn = pawn;
 
-			// This must be placed in main game's UI code I think
-			var notifications = new Notifications.NotificationsHud();
-			
 			// Get all of the spawnpoints
 			var spawnpoints = Entity.All.OfType<SpawnPoint>();
 
@@ -55,9 +61,7 @@ namespace Sandbox
 				pawn.Transform = tx;
 			}
 			
-			// How it should be
-			//notifications.show_notification(Notifications.NotificationType.Error, "What the hell, man?", "5FB5");
-		}
+			notifications.show_notification( To.Single( client ), Notifications.NotificationType.Error, "What the hell, man?" );
+		} 
 	}
-
 }
