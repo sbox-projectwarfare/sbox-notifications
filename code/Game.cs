@@ -1,6 +1,7 @@
 ﻿/*
  * This is an example game to show you how notification library works
- * Just press 1, 2, 3 buttons to see 3 basic types of notification - Generic, Hint, Error
+ * It shows some test cases of using it in main game's script 
+ * And on client
  *
  */
 
@@ -25,7 +26,9 @@ namespace Sandbox
 	/// </summary>
 	public partial class MyGame : Sandbox.Game
 	{
-		public Notifications.NotificationManager notifications;
+		public Notifications.NotificationManager NotificationManager;
+		
+		private int test = 0; // for test case
 
 		public MyGame()
 		{
@@ -33,7 +36,7 @@ namespace Sandbox
 			new GameUi();
 
 			// Initialize notification manager for clients
-			notifications = new Notifications.NotificationManager();
+			NotificationManager = new Notifications.NotificationManager();
 		}
 
 		/// <summary>
@@ -60,8 +63,30 @@ namespace Sandbox
 				tx.Position = tx.Position + Vector3.Up * 50.0f; // raise it up
 				pawn.Transform = tx;
 			}
-			
-			notifications.show_notification( To.Single( client ), Notifications.NotificationType.Error, "What the hell, man?" );
-		} 
+		}
+
+		public override void Simulate( Client cl )
+		{
+			base.Simulate( cl );
+
+			if (IsServer)
+			{
+				// Test case
+				if (test == 0)
+				{
+					// single test case
+					NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script!" );
+
+					/*
+					// multiple test case
+					for (int i = 0; i < 4; i++ )
+					{
+						NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script #" + i );
+					}
+					*/
+					test = 1;
+				}
+			}
+		}
 	}
 }

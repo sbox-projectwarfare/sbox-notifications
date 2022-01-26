@@ -17,8 +17,6 @@ NotificationBase {
     font-weight: bold;
     backdrop-filter: blur( 10px );
 
-    opacity: 0;
-
     .shape {
         position: absolute;
         width: 40px;
@@ -45,12 +43,14 @@ NotificationBase {
         font-weight: normal;
     }
 
-    .active {
-        opacity: 1;
+    &.active {
+        left: 0%;
+        transition: all 0.5s ease-in-out;
     }
 
-    .unactive {
-        opacity: 0;
+    &.unactive {
+        left: -50%;
+        transition: all 0.5s ease-in-out;
     }
 }
 
@@ -70,7 +70,6 @@ Generic {
     border-radius: 15px;
     font-weight: bold;
     backdrop-filter: blur( 10px );
-    opacity: 0; // by default it must be hide
 
     .shape {
         position: absolute;
@@ -98,12 +97,14 @@ Generic {
         font-weight: normal;
     }
 
-    .active {
-        opacity: 1;
+    &.active {
+        left: 0%;
+        transition: all 0.5s ease-in-out;
     }
 
-    .unactive {
-        opacity: 0;
+    &.unactive {
+        left: -50%;
+        transition: all 0.5s ease-in-out;
     }
 }
 
@@ -121,7 +122,6 @@ Hint {
     border-radius: 15px;
     font-weight: bold;
     backdrop-filter: blur( 10px );
-    opacity: 0; // by default it must be hide
 
     .shape {
         position: absolute;
@@ -149,18 +149,21 @@ Hint {
         font-weight: normal;
     }
 
-    .active {
-        opacity: 1;
+    &.active {
+        left: 0%;
+        transition: all 0.5s ease-in-out;
     }
 
-    .unactive {
-        opacity: 0;
+    &.unactive {
+        left: -50%;
+        transition: all 0.5s ease-in-out;
     }
 }
 
 Error {
     position: absolute;
     margin: 50 50px;
+    left: -50%;
     padding: 5 40px;
     padding-left: 45px;
     flex-direction: column;
@@ -172,8 +175,6 @@ Error {
     border-radius: 15px;
     font-weight: bold;
     backdrop-filter: blur( 10px );
-    
-    opacity: 0; // by default it must be hide
 
     .shape {
         position: absolute;
@@ -202,10 +203,12 @@ Error {
     }
 
     &.active {
-        opacity: 1;
+        left: 0%;
+        transition: all 0.5s ease-in-out;
     }
 
     &.unactive {
-        opacity: 0;
+        left: -50%;
+        transition: all 0.5s ease-in-out;
     }
 }

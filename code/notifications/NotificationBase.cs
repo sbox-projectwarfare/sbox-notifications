@@ -21,10 +21,12 @@ namespace Notifications {
 		// Just to draw a UI shape in left from text
 		private Label NotificationShape;
 
-		// How long notification will active
-		// by default notification will shown for 4.7 seconds
-		private const float showTime = 4.7f;
-		private uint timeStamp = (uint)Sandbox.Time.Tick;
+		/// <summary>
+		/// How long notification will active
+		/// by default notification will shown for 6 seconds
+		/// </summary>
+		private const float showTime = 6.0f;
+		private float timeStamp = Sandbox.Time.Delta;
 
 		public NotificationBase()
 		{
@@ -33,17 +35,23 @@ namespace Notifications {
 			Message = Add.Label( "Notification text here", "message" );
 		}
 
-		public void show()
+		public override void Tick()
 		{
-			SetClass( "active", true );
-			//while ( Sandbox.Time.Now - timeStamp <= showTime )
-			//{
-			//	SetClass( "active", true );
-			//	timeStamp = (uint)Sandbox.Time.Tick; // update ticks
-			//}
+			base.Tick();
 
-			//// When time is over we tell to scss set class "unable" to hide notification
-			//SetClass( "unactive", true );
+			if ( Sandbox.Time.Now - timeStamp < showTime )
+			{
+				SetClass( "active", true );
+				timeStamp = Sandbox.Time.Delta; // update ticks
+			}
+			else
+			{
+				// Hide notification
+				SetClass( "unactive", true );
+
+				Log.Info( "Notifications Library: Clearing notification from memory..." );
+				Delete();
+			}
 		}
 	}
 }

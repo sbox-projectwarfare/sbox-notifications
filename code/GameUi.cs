@@ -25,7 +25,7 @@ public partial class GameUi: HudEntity<RootPanel>
 
 		public MainPanel()
 		{
-			MainText = Add.Label( "1 - Generic notification, 2 - Hint notification, 3 - Error notification", "text" );
+			MainText = Add.Label( "For client:\n1 - Generic notification, 2 - Hint notification, 3 - Error notification", "text" );
 		}
 	}
 }

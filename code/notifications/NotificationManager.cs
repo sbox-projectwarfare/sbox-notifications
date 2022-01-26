@@ -24,6 +24,8 @@ namespace Notifications
 	[Library]
 	public partial class NotificationManager : HudEntity<RootPanel>
 	{
+		private List<NotificationBase> _NotificationList = null;
+
 		public NotificationManager()
 		{
 			if ( !IsClient )
@@ -31,46 +33,35 @@ namespace Notifications
 
 			RootPanel.StyleSheet.Load( "/notifications/styles/NotificationsStyle.scss" );
 
+			_NotificationList = new List<NotificationBase>();
+
 			Log.Info( "Notifications Library: NotificationManager Initialized" );
 		}
 
-		private int notificationCounter = 0;
-
 		[ClientRpc]
-		public void show_notification(NotificationType type, string text)
+		public void ShowNotification(NotificationType type, string text)
         {
-			notificationCounter++;
-
 			if ( type == NotificationType.Generic )
 			{
-				Log.Info( "Notifications Library (Generic): TODO: Show generic notification!" );
+				Log.Info( "Notifications Library: TODO: Show generic notification!" );
 			}
 			else if ( type == NotificationType.Hint )
 			{
-				Log.Info( "Notifications Library (Hint): TODO: Show hint notification!" );
+				Log.Info( "Notifications Library: TODO: Show hint notification!" );
 			}
 			else if ( type == NotificationType.Error )
 			{
-				Log.Info( "Notifications Library (Error): Activating Error notification '" + text + "'..." );
+				Log.Info( "Notifications Library: Activating Error notification '" + text + "'..." );
 
-				var error = RootPanel.AddChild<Error>();
-				error.Title.Text = text;
+				var m_Error = new Error();
+				m_Error.Title.Text = text;
 
-				//if ( notificationCounter > 1 )
-				//{
-				//	// TODO: Change position
-				//}
+				// TODO: it should be something like event manager
+				// TODO: update panel position if element count in list more than 1
 
-				error.show();
+				_NotificationList.Add( m_Error );
+				RootPanel.AddChild( m_Error );
 
-				//notificationCounter--;
-
-				//error.Delete();
-				Log.Info( "Notifications Library (Error): End of Error notification" );
-			}
-			else
-			{
-				notificationCounter -= notificationCounter > 0 ? 1 : 0;
 			}
 		}
 	}
