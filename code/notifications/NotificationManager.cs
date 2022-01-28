@@ -36,6 +36,23 @@ namespace Notifications
 			_NotificationList = new List<NotificationBase>();
 
 			Log.Info( "Notifications Library: NotificationManager Initialized" );
+			Log.Info( "Notification Library: NotificationManager Initialized" );
+		}
+
+		[Event("NotificationManager.DeleteNotification")]
+		private void OnDeleteNotification(NotificationBase _Notification)
+		{
+			if ( _Notification == null )
+			{
+				Log.Error( "Notification Library: OnDeleteNotification() - Notification is null" );
+				return;
+			}
+
+			_Notification.SetClass( "unactive", true );
+			_NotificationList.Remove( _Notification ); // TODO: NotificationList management
+			_Notification.Delete();
+
+			Log.Info( "Notification Library: Notification deleted!" );
 		}
 
 		[ClientRpc]
@@ -43,15 +60,15 @@ namespace Notifications
         {
 			if ( type == NotificationType.Generic )
 			{
-				Log.Info( "Notifications Library: TODO: Show generic notification!" );
+				Log.Warning( "Notification Library: TODO: Show generic notification!" );
 			}
 			else if ( type == NotificationType.Hint )
 			{
-				Log.Info( "Notifications Library: TODO: Show hint notification!" );
+				Log.Warning( "Notification Library: TODO: Show hint notification!" );
 			}
 			else if ( type == NotificationType.Error )
 			{
-				Log.Info( "Notifications Library: Activating Error notification '" + text + "'..." );
+				Log.Info( "Notification Library: Activating Error notification '" + text + "'..." );
 
 				var m_Error = new Error();
 				m_Error.Title.Text = text;

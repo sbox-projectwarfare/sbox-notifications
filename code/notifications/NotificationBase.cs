@@ -9,6 +9,13 @@ namespace Notifications {
 	public class NotificationBase : Panel
 	{
 		/// <summary>
+		/// How long notification will active
+		/// by default notification will shown for 6 seconds
+		/// </summary>
+		private const float showTime = 6.0f;
+		private float timeStamp = Sandbox.Time.Delta;
+
+		/// <summary>
 		/// Title for your notification
 		/// </summary>
 		public Label Title;
@@ -20,19 +27,13 @@ namespace Notifications {
 
 		// Just to draw a UI shape in left from text
 		private Label NotificationShape;
-
-		/// <summary>
-		/// How long notification will active
-		/// by default notification will shown for 6 seconds
-		/// </summary>
-		private const float showTime = 6.0f;
-		private float timeStamp = Sandbox.Time.Delta;
-
+		
 		public NotificationBase()
 		{
 			NotificationShape = Add.Label( " ", "shape" );
 			Title = Add.Label( "Notification Title", "title" );
 			Message = Add.Label( "Notification text here", "message" );
+			SetClass( "active", true );
 		}
 
 		public override void Tick()
@@ -41,16 +42,11 @@ namespace Notifications {
 
 			if ( Sandbox.Time.Now - timeStamp < showTime )
 			{
-				SetClass( "active", true );
-				timeStamp = Sandbox.Time.Delta; // update ticks
+				timeStamp = Sandbox.Time.Delta;
 			}
 			else
 			{
-				// Hide notification
-				SetClass( "unactive", true );
-
-				Log.Info( "Notifications Library: Clearing notification from memory..." );
-				Delete();
+				Sandbox.Event.Run( "NotificationManager.DeleteNotification", this);
 			}
 		}
 	}
