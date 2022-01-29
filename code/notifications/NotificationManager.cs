@@ -32,10 +32,8 @@ namespace Notifications
 				return;
 
 			RootPanel.StyleSheet.Load( "/notifications/styles/NotificationsStyle.scss" );
-
 			_NotificationList = new List<NotificationBase>();
 
-			Log.Info( "Notifications Library: NotificationManager Initialized" );
 			Log.Info( "Notification Library: NotificationManager Initialized" );
 		}
 
@@ -48,7 +46,6 @@ namespace Notifications
 				return;
 			}
 
-			_Notification.SetClass( "unactive", true );
 			_NotificationList.Remove( _Notification ); // TODO: NotificationList management
 			_Notification.Delete();
 
@@ -73,12 +70,16 @@ namespace Notifications
 				var m_Error = new Error();
 				m_Error.Title.Text = text;
 
-				// TODO: it should be something like event manager
-				// TODO: update panel position if element count in list more than 1
 
+				if (_NotificationList.Count > 1)
+				{
+					//TODO: change position
+
+
+				}
 				_NotificationList.Add( m_Error );
-				RootPanel.AddChild( m_Error );
 
+				RootPanel.AddChild( m_Error );
 			}
 		}
 	}

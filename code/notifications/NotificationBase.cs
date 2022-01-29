@@ -33,7 +33,6 @@ namespace Notifications {
 			NotificationShape = Add.Label( " ", "shape" );
 			Title = Add.Label( "Notification Title", "title" );
 			Message = Add.Label( "Notification text here", "message" );
-			SetClass( "active", true );
 		}
 
 		public override void Tick()
