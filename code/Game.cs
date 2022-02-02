@@ -35,7 +35,7 @@ namespace Sandbox
 			// Simple test game's UI
 			new GameUi();
 
-			// Initialize notification manager for clients
+			// Initialize notification manager
 			NotificationManager = new Notifications.NotificationManager();
 		}
 
@@ -69,24 +69,22 @@ namespace Sandbox
 		{
 			base.Simulate( cl );
 
-			if (IsServer)
-			{
-				// Test case
-				if (test == 0)
-				{
-					// single test case
-					NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script!" );
+			// Test case
+			//if (test == 0)
+			//{
+			//	// single test case
+			//	NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script!" );
+			//	NotificationManager.ShowNotification( To.Single(cl), Notifications.NotificationType.Error, "Error for current player from the game script!" );
 
-					/*
-					// multiple test case
-					for (int i = 0; i < 4; i++ )
-					{
-						NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script #" + i );
-					}
-					*/
-					test = 1;
-				}
-			}
+			//	// multiple test case
+			//	//for ( int i = 0; i < 2; i++ )
+			//	//{
+			//	//	NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script #" + i );
+			//	//}
+
+			//	test = 1;
+			//}
+
 		}
 	}
 }

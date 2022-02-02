@@ -6,9 +6,17 @@ namespace Sandbox
 {
 	partial class Pawn : AnimEntity
 	{
+		public Notifications.NotificationManager NotificationManager;
+		public Pawn()
+		{
+			// Initialize notification manager
+			NotificationManager = new Notifications.NotificationManager();
+		}
+
 		/// <summary>
 		/// Called when the entity is first created 
 		/// </summary>
+		/// 
 		public override void Spawn()
 		{
 			base.Spawn();
@@ -60,6 +68,24 @@ namespace Sandbox
 				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
 				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
 				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+			}
+
+			if ( IsClient && Input.Released( InputButton.Slot1 ) )
+			{
+				Log.Info( "Pressed Slot 3 key" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Generic, "You pressed a generic panel!" );
+			}
+
+			if ( IsClient && Input.Released( InputButton.Slot2 ) )
+			{
+				Log.Info( "Pressed Slot 3 key" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Hint, "This is a hint panel!" );
+			}
+
+			if (IsClient && Input.Released( InputButton.Slot3 ) )
+			{
+				Log.Info( "Pressed Slot 3 key" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Error, "This is an error panel!" );
 			}
 		}
 

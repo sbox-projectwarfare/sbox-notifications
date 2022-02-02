@@ -28,7 +28,7 @@ namespace Notifications
 		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
 		private List<NotificationBase> _NotificationList = null;
 
-		private const int positionIndent = 100;
+		private const int positionIndent = 50;
 
 		public NotificationManager()
 		{
@@ -50,7 +50,7 @@ namespace Notifications
 				return;
 			}
 
-			_NotificationList.Remove( _Notification ); // TODO: NotificationList management
+			_NotificationList.Remove( _Notification ); // TODO: Correct NotificationList management
 			_Notification.Delete();
 
 			Log.Info( "Notification Library: Notification deleted!" );
@@ -61,11 +61,39 @@ namespace Notifications
 		{
 			if ( type == NotificationType.Generic )
 			{
-				Log.Warning( "Notification Library: TODO: Show generic notification!" );
+				Log.Info( "Notification Library: Activate Generic notification..." );
+
+				var m_Generic = new Generic();
+				m_Generic.Message.Text = text;
+
+				RootPanel.AddChild( m_Generic );
+
+				if ( _NotificationList.Count > 0 )
+				{
+					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
+					var newPosition = lastPosition + positionIndent;
+					m_Generic.Style.Top = newPosition; // update panel style
+					m_Generic.Box.Rect.top = newPosition; // just to save a new position to panel
+				}
+				_NotificationList.Add( m_Generic );
 			}
 			else if ( type == NotificationType.Hint )
 			{
-				Log.Warning( "Notification Library: TODO: Show hint notification!" );
+				Log.Info( "Notification Library: Activating Hint notification..." );
+
+				var m_Hint = new Hint();
+				m_Hint.Message.Text = text;
+
+				RootPanel.AddChild( m_Hint );
+
+				if ( _NotificationList.Count > 0 )
+				{
+					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
+					var newPosition = lastPosition + positionIndent;
+					m_Hint.Style.Top = newPosition; // update panel style
+					m_Hint.Box.Rect.top = newPosition; // just to save a new position to panel
+				}
+				_NotificationList.Add( m_Hint );
 			}
 			else if ( type == NotificationType.Error )
 			{
