@@ -8,6 +8,7 @@ using Sandbox.UI;
 
 namespace Notifications
 {
+
 	/// <summary>
 	/// Types of all available notifications
 	/// </summary>
@@ -24,14 +25,17 @@ namespace Notifications
 	[Library]
 	public partial class NotificationManager : HudEntity<RootPanel>
 	{
+		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
 		private List<NotificationBase> _NotificationList = null;
+
+		private const int positionIndent = 100;
 
 		public NotificationManager()
 		{
 			if ( !IsClient )
 				return;
 
-			RootPanel.StyleSheet.Load( "/notifications/styles/NotificationsStyle.scss" );
+			RootPanel.StyleSheet.Load( stylePath );
 			_NotificationList = new List<NotificationBase>();
 
 			Log.Info( "Notification Library: NotificationManager Initialized" );
@@ -53,8 +57,8 @@ namespace Notifications
 		}
 
 		[ClientRpc]
-		public void ShowNotification(NotificationType type, string text)
-        {
+		public void ShowNotification( NotificationType type, string text )
+		{
 			if ( type == NotificationType.Generic )
 			{
 				Log.Warning( "Notification Library: TODO: Show generic notification!" );
@@ -70,16 +74,16 @@ namespace Notifications
 				var m_Error = new Error();
 				m_Error.Title.Text = text;
 
+				RootPanel.AddChild( m_Error );
 
-				if (_NotificationList.Count > 1)
+				if ( _NotificationList.Count > 0 )
 				{
-					//TODO: change position
-
-
+					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
+					var newPosition = lastPosition + positionIndent;
+					m_Error.Style.Top = newPosition; // update panel style
+					m_Error.Box.Rect.top = newPosition; // just to save a new position to panel
 				}
 				_NotificationList.Add( m_Error );
-
-				RootPanel.AddChild( m_Error );
 			}
 		}
 	}

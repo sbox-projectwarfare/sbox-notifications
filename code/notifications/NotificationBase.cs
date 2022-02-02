@@ -30,6 +30,7 @@ namespace Notifications {
 		
 		public NotificationBase()
 		{
+			Style.Dirty();
 			NotificationShape = Add.Label( " ", "shape" );
 			Title = Add.Label( "Notification Title", "title" );
 			Message = Add.Label( "Notification text here", "message" );
@@ -39,13 +40,14 @@ namespace Notifications {
 		{
 			base.Tick();
 
+			//TODO: it will be nice to use TimeSince struct to not check game ticks by hand
 			if ( Sandbox.Time.Now - timeStamp < showTime )
 			{
 				timeStamp = Sandbox.Time.Delta;
 			}
 			else
 			{
-				Sandbox.Event.Run( "NotificationManager.DeleteNotification", this);
+				Sandbox.Event.Run( "NotificationManager.DeleteNotification", this );
 			}
 		}
 	}
