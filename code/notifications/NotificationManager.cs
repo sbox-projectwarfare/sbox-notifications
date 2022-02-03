@@ -28,7 +28,7 @@ namespace Notifications
 		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
 		private List<NotificationBase> _NotificationList = null;
 
-		private const int positionIndent = 50;
+		private const int positionIndend = 50;
 
 		public NotificationManager()
 		{
@@ -56,63 +56,40 @@ namespace Notifications
 			Log.Info( "Notification Library: Notification deleted!" );
 		}
 
+		/// <summary>
+		/// Returns an instance of needed panel from enum.
+		/// Should be updated for custom panel type
+		/// </summary>
+		private NotificationBase GetTypeFromEnum(NotificationType type)
+		{
+			switch ( type )
+			{
+				case NotificationType.Generic: return new Generic();
+				case NotificationType.Hint: return new Hint();
+				case NotificationType: return new Error();
+				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists!" ); return null; }
+			}
+		}
+
 		[ClientRpc]
 		public void ShowNotification( NotificationType type, string text )
 		{
-			if ( type == NotificationType.Generic )
+			NotificationBase newPanel = GetTypeFromEnum( type );
+
+			newPanel.Message.Text = text;
+
+			RootPanel.AddChild( newPanel );
+
+			if ( _NotificationList.Count > 0 )
 			{
-				Log.Info( "Notification Library: Activate Generic notification..." );
-
-				var m_Generic = new Generic();
-				m_Generic.Message.Text = text;
-
-				RootPanel.AddChild( m_Generic );
-
-				if ( _NotificationList.Count > 0 )
-				{
-					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
-					var newPosition = lastPosition + positionIndent;
-					m_Generic.Style.Top = newPosition; // update panel style
-					m_Generic.Box.Rect.top = newPosition; // just to save a new position to panel
-				}
-				_NotificationList.Add( m_Generic );
+				// FIXME: set indend from bottom coordinate
+				var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
+				var newPosition = lastPosition + positionIndend;
+				newPanel.Style.Top = newPosition; // update panel style
+				newPanel.Box.Rect.top = newPosition; // just to save a new position to panel
 			}
-			else if ( type == NotificationType.Hint )
-			{
-				Log.Info( "Notification Library: Activating Hint notification..." );
 
-				var m_Hint = new Hint();
-				m_Hint.Message.Text = text;
-
-				RootPanel.AddChild( m_Hint );
-
-				if ( _NotificationList.Count > 0 )
-				{
-					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
-					var newPosition = lastPosition + positionIndent;
-					m_Hint.Style.Top = newPosition; // update panel style
-					m_Hint.Box.Rect.top = newPosition; // just to save a new position to panel
-				}
-				_NotificationList.Add( m_Hint );
-			}
-			else if ( type == NotificationType.Error )
-			{
-				Log.Info( "Notification Library: Activating Error notification '" + text + "'..." );
-
-				var m_Error = new Error();
-				m_Error.Title.Text = text;
-
-				RootPanel.AddChild( m_Error );
-
-				if ( _NotificationList.Count > 0 )
-				{
-					var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
-					var newPosition = lastPosition + positionIndent;
-					m_Error.Style.Top = newPosition; // update panel style
-					m_Error.Box.Rect.top = newPosition; // just to save a new position to panel
-				}
-				_NotificationList.Add( m_Error );
-			}
+			_NotificationList.Add( newPanel );
 		}
 	}
 }

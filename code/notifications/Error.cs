@@ -10,8 +10,8 @@ namespace Notifications
 	{
 		public Error()
 		{
-			Title.Text = "Something is creating error";
-			Message.Delete(); // To remove an empty space under the title
+			Title.Delete();
+			Message.Text = "Something is creating error";
 		}
 	}
 }

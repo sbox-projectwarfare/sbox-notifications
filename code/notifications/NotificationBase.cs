@@ -10,9 +10,9 @@ namespace Notifications {
 	{
 		/// <summary>
 		/// How long notification will active
-		/// by default notification will shown for 6 seconds
+		/// by default notification will shown for 5 seconds
 		/// </summary>
-		private float showTime = 4.7f;
+		private float showTime = 5f;
 
 		/// <summary>
 		/// Title for your notification
@@ -40,13 +40,9 @@ namespace Notifications {
 			base.Tick();
 
 			if ( showTime > 0 )
-			{
 				showTime -= Sandbox.Time.Delta;
-			}
 			else
-			{
 				Sandbox.Event.Run( "NotificationManager.DeleteNotification", this );
-			}
 		}
 	}
 }
