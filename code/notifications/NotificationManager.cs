@@ -66,7 +66,7 @@ namespace Notifications
 			{
 				case NotificationType.Generic: return new Generic();
 				case NotificationType.Hint: return new Hint();
-				case NotificationType: return new Error();
+				case NotificationType.Error: return new Error();
 				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists!" ); return null; }
 			}
 		}

@@ -10,9 +10,9 @@ namespace Notifications {
 	{
 		/// <summary>
 		/// How long notification will active
-		/// by default notification will shown for 5 seconds
+		/// by default notification will shown for 4.7 seconds
 		/// </summary>
-		private float showTime = 5f;
+		private float showTime = 4.7f;
 
 		/// <summary>
 		/// Title for your notification
@@ -29,7 +29,7 @@ namespace Notifications {
 		
 		public NotificationBase()
 		{
-			this.Style.Dirty();
+			Style.Dirty();
 			this.NotificationShape = Add.Label( " ", "shape" );
 			this.Title = Add.Label( "Notification Title", "title" );
 			this.Message = Add.Label( "Notification text here", "message" );
