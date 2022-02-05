@@ -36,6 +36,7 @@ namespace Notifications
 				return;
 
 			RootPanel.StyleSheet.Load( stylePath );
+
 			_NotificationList = new List<NotificationBase>();
 
 			Log.Info( "Notification Library: Client NotificationManager Initialized" );
@@ -74,9 +75,9 @@ namespace Notifications
 		{
 			switch ( type )
 			{
-				case NotificationType.Generic: return new Generic();
-				case NotificationType.Hint: return new Hint();
-				case NotificationType.Error: return new Error();
+				case NotificationType.Generic: return new Notifications.Generic();
+				case NotificationType.Hint: return new Notifications.Hint();
+				case NotificationType.Error: return new Notifications.Error();
 				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists! (" + type + ")" ); return null; }
 			}
 		}
@@ -98,24 +99,14 @@ namespace Notifications
 
 			if ( _NotificationList.Count > 0 )
 			{
-				// FIXME: if very much panels are called, position can be broken
-				var lastPosition = _NotificationList.Last().Box.Rect.bottom.CeilToInt(); // get position from last panel
-				Log.Info( "Last position: " + lastPosition );
-
-				var newPosition = lastPosition + positionIndend;
-
-				Log.Info("New position: " + newPosition );
+				var lastPosition = _NotificationList.Last().Box.Rect.bottom; // get position from last panel
+				var newPosition = _NotificationList.Last().ScaleFromScreen  * ( lastPosition + positionIndend );
 				
 				NewPanel.Style.Top = newPosition; // update panel style
-				NewPanel.Box.Rect.top = newPosition;//NewPanel.Style.Top;
-				Log.Info("NewPanel top: " + NewPanel.Style.Top );
+				NewPanel.Box.Rect.top = newPosition;
+			}
 
-				_NotificationList.Add( NewPanel );
-			}
-			else
-			{
-				_NotificationList.Add( NewPanel );
-			}
+			_NotificationList.Add( NewPanel );
 		}
 	}
 }
