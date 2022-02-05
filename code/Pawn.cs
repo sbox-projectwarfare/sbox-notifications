@@ -72,20 +72,20 @@ namespace Sandbox
 
 			if ( IsClient && Input.Released( InputButton.Slot1 ) )
 			{
-				Log.Info( "Pressed Slot 3 key" );
-				NotificationManager.ShowNotification( Notifications.NotificationType.Generic, "You pressed a generic panel!" );
+				Log.Info( "Pressed Slot 1 key" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Generic, "Notification created by player!" );
 			}
 
 			if ( IsClient && Input.Released( InputButton.Slot2 ) )
 			{
-				Log.Info( "Pressed Slot 3 key" );
-				NotificationManager.ShowNotification( Notifications.NotificationType.Hint, "This is a hint panel!" );
+				Log.Info( "Pressed Slot 2 key" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Hint, "Hint created by player!" );
 			}
 
 			if (IsClient && Input.Released( InputButton.Slot3 ) )
 			{
 				Log.Info( "Pressed Slot 3 key" );
-				NotificationManager.ShowNotification( Notifications.NotificationType.Error, "This is an error panel!" );
+				NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error created by player!" );
 			}
 		}
 

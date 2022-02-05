@@ -2,7 +2,7 @@
 
 ==== Notification style example ====
 
-NotificationBase {
+NotificationBase { // This is must be your panel class name
     position: absolute;
     margin: 50 50px;
     padding: 5 40px;

@@ -28,7 +28,7 @@ namespace Notifications
 		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
 		private List<NotificationBase> _NotificationList = null;
 
-		private const int positionIndend = 50;
+		private const int positionIndend = 20;
 
 		public NotificationManager()
 		{
@@ -38,7 +38,7 @@ namespace Notifications
 			RootPanel.StyleSheet.Load( stylePath );
 			_NotificationList = new List<NotificationBase>();
 
-			Log.Info( "Notification Library: NotificationManager Initialized" );
+			Log.Info( "Notification Library: Client NotificationManager Initialized" );
 		}
 
 		[Event("NotificationManager.DeleteNotification")]
@@ -50,10 +50,20 @@ namespace Notifications
 				return;
 			}
 
-			_NotificationList.Remove( _Notification ); // TODO: Correct NotificationList management
-			_Notification.Delete();
-
-			Log.Info( "Notification Library: Notification deleted!" );
+			foreach ( NotificationBase notificationFromList in _NotificationList )
+			{
+				if ( _Notification.GetHashCode() == notificationFromList.GetHashCode() ) // if notification in list equal to notification we need
+				{
+					Log.Info( "Notification Library: Deleting notification..." );
+					
+					_NotificationList.Remove( notificationFromList ); // delete it from list and itself 
+					_Notification.Delete(); // TODO: Correct NotificationList management
+					
+					Log.Info( "Notification Library: Notification deleted!" );
+					
+					return;
+				}
+			}
 		}
 
 		/// <summary>
@@ -67,29 +77,45 @@ namespace Notifications
 				case NotificationType.Generic: return new Generic();
 				case NotificationType.Hint: return new Hint();
 				case NotificationType.Error: return new Error();
-				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists!" ); return null; }
+				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists! (" + type + ")" ); return null; }
 			}
 		}
 
 		[ClientRpc]
 		public void ShowNotification( NotificationType type, string text )
 		{
-			NotificationBase newPanel = GetTypeFromEnum( type );
+			NotificationBase NewPanel = GetTypeFromEnum( type );
 
-			newPanel.Message.Text = text;
+			if ( NewPanel == null )
+			{
+				Log.Error( "Notification Library: ShowNotification() - Notification based on " + type + " type is null!" );
+				return;
+			}
 
-			RootPanel.AddChild( newPanel );
+			NewPanel.Message.Text = text;
+
+			RootPanel.AddChild( NewPanel );
 
 			if ( _NotificationList.Count > 0 )
 			{
-				// FIXME: set indend from bottom coordinate
-				var lastPosition = _NotificationList.Last().Box.Rect.top; // get position from last panel
-				var newPosition = lastPosition + positionIndend;
-				newPanel.Style.Top = newPosition; // update panel style
-				newPanel.Box.Rect.top = newPosition; // just to save a new position to panel
-			}
+				// FIXME: if very much panels are called, position can be broken
+				var lastPosition = _NotificationList.Last().Box.Rect.bottom.CeilToInt(); // get position from last panel
+				Log.Info( "Last position: " + lastPosition );
 
-			_NotificationList.Add( newPanel );
+				var newPosition = lastPosition + positionIndend;
+
+				Log.Info("New position: " + newPosition );
+				
+				NewPanel.Style.Top = newPosition; // update panel style
+				NewPanel.Box.Rect.top = newPosition;//NewPanel.Style.Top;
+				Log.Info("NewPanel top: " + NewPanel.Style.Top );
+
+				_NotificationList.Add( NewPanel );
+			}
+			else
+			{
+				_NotificationList.Add( NewPanel );
+			}
 		}
 	}
 }
