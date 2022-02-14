@@ -38,37 +38,37 @@ namespace Sandbox
 		{
 			base.Simulate( cl );
 
-			Rotation = Input.Rotation;
-			EyeRot = Rotation;
+			//Rotation = Input.Rotation;
+			//EyeRot = Rotation;
 
-			// build movement from the input values
-			var movement = new Vector3( Input.Forward, Input.Left, 0 ).Normal;
+			//// build movement from the input values
+			//var movement = new Vector3( Input.Forward, Input.Left, 0 ).Normal;
 
-			// rotate it to the direction we're facing
-			Velocity = Rotation * movement;
+			//// rotate it to the direction we're facing
+			//Velocity = Rotation * movement;
 
-			// apply some speed to it
-			Velocity *= Input.Down( InputButton.Run ) ? 1000 : 200;
+			//// apply some speed to it
+			//Velocity *= Input.Down( InputButton.Run ) ? 1000 : 200;
 
-			// apply it to our position using MoveHelper, which handles collision
-			// detection and sliding across surfaces for us
-			MoveHelper helper = new MoveHelper( Position, Velocity );
-			helper.Trace = helper.Trace.Size( 16 );
-			if ( helper.TryMove( Time.Delta ) > 0 )
-			{
-				Position = helper.Position;
-			}
+			//// apply it to our position using MoveHelper, which handles collision
+			//// detection and sliding across surfaces for us
+			//MoveHelper helper = new MoveHelper( Position, Velocity );
+			//helper.Trace = helper.Trace.Size( 16 );
+			//if ( helper.TryMove( Time.Delta ) > 0 )
+			//{
+			//	Position = helper.Position;
+			//}
 
 			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
-			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
-			{
-				var ragdoll = new ModelEntity();
-				ragdoll.SetModel( "models/citizen/citizen.vmdl" );
-				ragdoll.Position = EyePos + EyeRot.Forward * 40;
-				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
-			}
+			//if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
+			//{
+			//	var ragdoll = new ModelEntity();
+			//	ragdoll.SetModel( "models/citizen/citizen.vmdl" );
+			//	ragdoll.Position = EyePos + EyeRot.Forward * 40;
+			//	ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
+			//	ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
+			//	ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+			//}
 
 			if ( IsClient && Input.Released( InputButton.Slot1 ) )
 			{
@@ -96,9 +96,9 @@ namespace Sandbox
 		{
 			base.FrameSimulate( cl );
 
-			// Update rotation every frame, to keep things smooth
-			Rotation = Input.Rotation;
-			EyeRot = Rotation;
+			//// Update rotation every frame, to keep things smooth
+			//Rotation = Input.Rotation;
+			//EyeRot = Rotation;
 		}
 	}
 }

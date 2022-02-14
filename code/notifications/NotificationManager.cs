@@ -10,7 +10,7 @@ namespace Notifications
 {
 
 	/// <summary>
-	/// Types of all available notifications
+	/// Types of available notifications
 	/// </summary>
 	public enum NotificationType
 	{
@@ -26,10 +26,17 @@ namespace Notifications
 	public partial class NotificationManager : HudEntity<RootPanel>
 	{
 		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
-		private List<NotificationBase> _NotificationList = null;
+		private List<NotificationBase> NotificationList = null;
 
-		private const int notificationLimit = 10; // How much panels will be shown on the screen
-		private const int positionIndend = -30; // For correct positioning multiple panels
+		/// <summary>
+		/// How much panels will be shown on the screen
+		/// </summary>
+		private const int notificationLimit = 10;
+
+		/// <summary>
+		/// Indend between panels
+		/// </summary>
+		private const int positionIndend = -30;
 
 		public NotificationManager()
 		{
@@ -38,25 +45,20 @@ namespace Notifications
 
 			RootPanel.StyleSheet.Load( stylePath );
 
-			_NotificationList = new List<NotificationBase>();
+			NotificationList = new List<NotificationBase>();
 
 			Log.Info( "Notification Library: Client NotificationManager Initialized" );
 		}
 
+		// TODO: FIFO stuff
 		private void CheckList()
 		{
 			Log.Warning( "Notification Library: TODO: CheckList()" );
-			/*
-			 * It must be like manager will check list for
-			 * notifications that are not within the displayed limit (notificationLimit)
-			 * and manager will continue show remaining notifications in list
-			 *
-			 */
 			return;
 		}
 
 		[Event( "NotificationManager.DeleteNotification" )]
-		private void OnDeleteNotification(NotificationBase _Notification)
+		private void OnDeleteNotification( NotificationBase _Notification )
 		{
 			if ( _Notification == null )
 			{
@@ -64,28 +66,26 @@ namespace Notifications
 				return;
 			}
 
-			foreach ( NotificationBase notificationFromList in _NotificationList )
+			foreach ( NotificationBase notificationFromList in NotificationList )
 			{
-				if ( _Notification.GetHashCode() == notificationFromList.GetHashCode() ) // if notification in list is equal to notification we need
-				{
-					Log.Info( "Notification Library: Deleting notification..." );
-					
-					_NotificationList.Remove( notificationFromList ); // delete it from list and itself 
-					_Notification.Delete(); // TODO: Correct NotificationList management
-					
-					Log.Info( "Notification Library: Notification deleted!" );
+				Log.Info( "Notification Library: Deleting notification..." );
 
-					CheckList();
-					return;
-				}
+				NotificationList.Remove( notificationFromList ); // delete it from list and itself 
+				_Notification.Delete();
+
+				Log.Info( "Notification Library: Notification deleted!" );
+
+				CheckList();
+				return;
+
 			}
 		}
 
 		/// <summary>
-		/// Returns an instance of needed panel from enum.
+		/// Returns an instance of panel from enum.
 		/// Should be updated for custom panel type
 		/// </summary>
-		private NotificationBase GetTypeFromEnum(NotificationType type)
+		private NotificationBase GetTypeFromEnum( NotificationType type )
 		{
 			switch ( type )
 			{
@@ -94,7 +94,7 @@ namespace Notifications
 				case NotificationType.Error: return new Notifications.Error();
 				default: { Log.Error( "Notificaiton Library: GetTypeFromEnum() - Type isn't exists! (" + type + ")" ); return null; }
 			}
-		}
+		} 
 
 		[ClientRpc]
 		public void ShowNotification( NotificationType type, string text )
@@ -111,26 +111,26 @@ namespace Notifications
 
 			// If count of panels isn't more than limit, we add it to screen
 			// in other case we just add it to the list, so we can draw the panel later
-			if ( _NotificationList.Count <= notificationLimit )
+			if ( NotificationList.Count <= notificationLimit - 1 ) // -1 because it counting from 0
 			{
 				RootPanel.AddChild( NewPanel );
 
 				// If there is more than 1 panel on the screen, perform repositioning
-				if ( _NotificationList.Count > 0 )
+				if ( NotificationList.Count > 0 )
 				{
-					var lastPosition = _NotificationList.Last().Box.Rect.bottom; // get position from last panel
-					var newPosition = _NotificationList.Last().ScaleFromScreen * ( lastPosition + positionIndend );
+					var lastPosition = NotificationList.Last().Box.Rect.bottom; // get position from last panel
+					var newPosition = NotificationList.Last().ScaleFromScreen * ( lastPosition + positionIndend );
 
 					NewPanel.Style.Top = newPosition; // update panel style
 					NewPanel.Box.Rect.bottom = newPosition; // save value for extracting it in the next call
 				}
 
-				_NotificationList.Add( NewPanel );
+				NotificationList.Add( NewPanel );
 			}
-			else if ( _NotificationList.Count >= notificationLimit )
+			else if ( NotificationList.Count > notificationLimit )
 			{
-				Log.Info( "Notification Library: List count more than limit. Notification added to queue" );
-				_NotificationList.Add( NewPanel );
+				//Log.Info( "Notification Library: Count of panels is more than limit. Notification added to queue" );
+				//NotificationList.Add( NewPanel );
 			}
 		}
 	}
