@@ -1,7 +1,7 @@
 {
   "Title": "MilitaryRP Notifications",
   "Type": "game",
-  "Org": "local",
+  "Org": "millitaryrp",
   "Ident": "militaryrp_notifications",
   "Schema": 1,
   "HasAssets": true,
