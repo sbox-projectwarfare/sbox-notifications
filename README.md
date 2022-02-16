@@ -1,6 +1,8 @@
 # <b>Notifications Library for s&amp;box MilitaryRP</b>
 ## This is a library that allows you to call notification panels for any reasons (you've get an error, or game must notify you about something), that basically developing for MilitaryRP project
 
+<p align="center"> <img src="readme_img/notifications_examples.png"/></p>
+
 ## This library currently in <b>alpha</b> and not fully stable (check "Known issues")
 
 ## <b>How to add library to your addon?</b>
