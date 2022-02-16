@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Notifications
+{
+	public class Hint : NotificationBase
+	{
+		public Hint()
+		{
+			Title.Text = "HINT:";
+			Message.Text = "This is a hint message that must notify you about something!";
+		}
+	}
+}
