@@ -127,11 +127,11 @@ namespace Notifications
 
 				NotificationList.Add( NewPanel );
 			}
-			else if ( NotificationList.Count > notificationLimit )
-			{
-				//Log.Info( "Notification Library: Count of panels is more than limit. Notification added to queue" );
-				//NotificationList.Add( NewPanel );
-			}
+			//else if ( NotificationList.Count > notificationLimit )
+			//{
+			//	Log.Info( "Notification Library: Count of panels is more than limit. Notification added to queue" );
+			//	NotificationList.Add( NewPanel );
+			//}
 		}
 	}
 }
