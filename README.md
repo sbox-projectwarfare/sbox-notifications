@@ -28,7 +28,7 @@ If you want to make your own notification type with custom style, you need to do
 ![Custom enum type](readme_img/custom_type.png)
 ![Custom method type](readme_img/custom_method.png)
 
-* Open `styles/NotificationsStyle.scss` file and set style you want. We recommend you to copy and paste our style example that you can modify it faster and more easier. Structure of panel style must be started from your class name and all class child fields (like title, message) must be inside it.
+* Open `styles/NotificationsStyle.scss` file and set style you want. We recommend you to copy and paste our style example (already written in file) that you can modify it faster and more easier. Structure of panel style must be started from your class name and all class child fields (like title, message) must be inside it.
 
 ![Style example](readme_img/style_example.png)
 * Now you can call `ShowNotification` method with your new type.
