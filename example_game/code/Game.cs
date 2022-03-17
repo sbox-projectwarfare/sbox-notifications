@@ -1,4 +1,10 @@
-﻿
+﻿/*
+ * This is an example game to show you how notification library works
+ * It shows some test cases of using it in main game's script 
+ * And on client
+ *
+ */
+
 using Sandbox;
 using Sandbox.UI.Construct;
 using System;
@@ -20,8 +26,17 @@ namespace Sandbox
 	/// </summary>
 	public partial class MyGame : Sandbox.Game
 	{
+		public Notifications.NotificationManager NotificationManager;
+		
+		private int test = 0; // for test case
+
 		public MyGame()
 		{
+			// Simple test game's UI
+			new GameUi();
+
+			// Initialize notification manager
+			NotificationManager = new Notifications.NotificationManager();
 		}
 
 		/// <summary>
@@ -34,8 +49,6 @@ namespace Sandbox
 			// Create a pawn for this client to play with
 			var pawn = new Pawn();
 			client.Pawn = pawn;
-
-			var notifications = new Notifications.NotificationsHud();
 
 			// Get all of the spawnpoints
 			var spawnpoints = Entity.All.OfType<SpawnPoint>();
@@ -51,6 +64,32 @@ namespace Sandbox
 				pawn.Transform = tx;
 			}
 		}
-	}
 
+		public override void Simulate( Client cl )
+		{
+			base.Simulate( cl );
+
+			// TODO: spawn panels via timer
+
+			if ( IsServer )
+			{
+				// Test case
+				//if ( test == 0 )
+				//{
+				//	// single test case
+				//	//NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script!" );
+				//	NotificationManager.ShowNotification( To.Single( cl ), Notifications.NotificationType.Error, "Error for current player from the game script!" );
+
+				//	//	// multiple test case
+				//	//	//for ( int i = 0; i < 2; i++ )
+				//	//	//{
+				//	//	//	NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script #" + i );
+				//	//	//}
+
+				//	test = 1;
+				//}
+			}
+
+		}
+	}
 }

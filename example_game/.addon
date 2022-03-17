@@ -1,12 +1,12 @@
 {
-  "SharedAssets": "*.*",
-  "Title": "MilitaryRP Notifications",
+  "Title": "MilitaryRP Notifications example game",
   "Type": "game",
-  "Org": "local",
+  "Org": "millitaryrp",
   "Ident": "militaryrp_notifications",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
+  "ResourcePaths": null,
   "HasCode": true,
   "CodePath": "/code/",
   "RootNamespace": "Notifications"
