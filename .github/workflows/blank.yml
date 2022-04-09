@@ -1,19 +1,21 @@
-name: Discord Webhook
-
+name: Discord Webhook Commit Log
 on: [push]
 
 jobs:
   git:
     runs-on: ubuntu-latest
     steps:
-
-    - uses: actions/checkout@v2
-
-    - name: Run Discord Webhook
-      uses: johnnyhuy/actions-discord-git-webhook@main
-      with:
-        webhook_url: ${{ secrets.YOUR_DISCORD_WEBHOOK_URL }}
-    - name: Run Discord Webhookk
-      uses: johnnyhuy/actions-discord-git-webhook@main
-      with:
-        webhook_url: ${{ secrets.YOUR_DISCORD_WEBHOOK_URLL }}
+      - uses: actions/checkout@v2
+      
+      - name: Better Discord Notification
+        uses: Retr0-01/better-discord-notification@main
+        with:
+          webhook-url: ${{ secrets.YOUR_DISCORD_WEBHOOK_URL }}
+          embed-color: '4936480'
+          footer-icon: 'https://cdn.discordapp.com/attachments/848104683179868200/959179428020244510/Brand_Image1.jpg'
+      - name: Better Discord Notification
+        uses: Retr0-01/better-discord-notification@main
+        with:
+          webhook-url: ${{ secrets.YOUR_DISCORD_WEBHOOK_URLL }}
+          embed-color: '4936480'
+          footer-icon: 'https://cdn.discordapp.com/attachments/848104683179868200/959179428020244510/Brand_Image1.jpg'
