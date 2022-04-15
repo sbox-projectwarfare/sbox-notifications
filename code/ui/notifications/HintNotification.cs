@@ -32,9 +32,6 @@ namespace Warfare.UI.Notifications
         public HintNotification() : base()
         {
             AddClass("gray");
-
-            Data.Title = "HINT:";
-            Data.Message = "This is a hint message that must notify you about something!";
         }
     }
 }

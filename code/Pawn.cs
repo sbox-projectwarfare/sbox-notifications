@@ -54,6 +54,7 @@ namespace Warfare
                 NotificationManager.ShowNotification(new NotificationData()
                 {
                     NotificationName = Library.GetAttribute(typeof(UI.Notifications.HintNotification)).Name,
+                    Title = "HINT",
                     Message = "Hint created by player on client!"
                 });
             }

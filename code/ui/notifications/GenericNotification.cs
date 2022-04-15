@@ -32,9 +32,6 @@ namespace Warfare.UI.Notifications
         public GenericNotification() : base()
         {
             AddClass("green");
-
-            Data.Title = "Notification";
-            Data.Message = "Test notification message\nAnd of course it should support a transition in a new line";
         }
     }
 }

@@ -32,8 +32,6 @@ namespace Warfare.UI.Notifications
         public ErrorNotification() : base()
         {
             AddClass("red");
-
-            Data.Message = "Something is creating error";
         }
     }
 }

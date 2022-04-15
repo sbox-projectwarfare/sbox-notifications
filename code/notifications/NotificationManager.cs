@@ -59,7 +59,7 @@ namespace Warfare.Notifications
 
             notificationData.Read(data);
 
-            Instance?.NotificationList.Add(notificationData);
+            ShowNotification(notificationData);
         }
 
         public static void ShowNotification<T>(T notificationData) where T : NotificationData

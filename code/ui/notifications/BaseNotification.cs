@@ -71,7 +71,7 @@ namespace Warfare.UI.Notifications
         /// </summary>
         public string Title
         {
-            get => Data.Title;
+            get => Data.Title ?? "Notification Title";
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Warfare.UI.Notifications
         /// </summary>
         public string Message
         {
-            get => Data.Message;
+            get => Data.Message ?? "Notification Message";
         }
 
         // Just to draw a UI shape in left from text

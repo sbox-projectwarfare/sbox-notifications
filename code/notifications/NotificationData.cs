@@ -21,9 +21,9 @@ namespace Warfare.Notifications
     [NotificationData("base", typeof(BaseNotification)), Hammer.Skip]
     public partial class NotificationData
     {
-        public string Title { get; set; } = "Notification Title";
+        public string Title { get; set; }
 
-        public string Message { get; set; } = "Notification text here";
+        public string Message { get; set; }
 
         public string Name { get; set; }
 
@@ -50,8 +50,8 @@ namespace Warfare.Notifications
         {
             binaryWriter.Write(Name);
             binaryWriter.Write(NotificationName);
-            binaryWriter.Write(Title);
-            binaryWriter.Write(Message);
+            binaryWriter.Write(Title ?? "");
+            binaryWriter.Write(Message ?? "");
         }
 
         public byte[] Write()
@@ -72,8 +72,20 @@ namespace Warfare.Notifications
         {
             Name = binaryReader.ReadString();
             NotificationName = binaryReader.ReadString();
+
             Title = binaryReader.ReadString();
+
+            if (string.IsNullOrEmpty(Title))
+            {
+                Title = null;
+            }
+
             Message = binaryReader.ReadString();
+
+            if (string.IsNullOrEmpty(Message))
+            {
+                Message = null;
+            }
         }
 
         public void Read(byte[] bytes)
