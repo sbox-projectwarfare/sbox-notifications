@@ -26,12 +26,12 @@
 
 namespace Warfare.UI.Notifications
 {
-	public class ErrorNotification : BaseNotification
-	{
-		public ErrorNotification()
-		{
-			Title.Delete();
-			Message.Text = "Something is creating error";
-		}
-	}
+    public class ErrorNotification : BaseNotification
+    {
+        public ErrorNotification()
+        {
+            Title.Delete();
+            Message.Text = "Something is creating error";
+        }
+    }
 }

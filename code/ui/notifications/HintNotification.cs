@@ -26,12 +26,12 @@
 
 namespace Warfare.UI.Notifications
 {
-	public class HintNotification : BaseNotification
-	{
-		public HintNotification()
-		{
-			Title.Text = "HINT:";
-			Message.Text = "This is a hint message that must notify you about something!";
-		}
-	}
+    public class HintNotification : BaseNotification
+    {
+        public HintNotification()
+        {
+            Title.Text = "HINT:";
+            Message.Text = "This is a hint message that must notify you about something!";
+        }
+    }
 }

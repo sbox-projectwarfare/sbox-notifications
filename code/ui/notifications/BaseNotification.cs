@@ -29,50 +29,50 @@ using Sandbox.UI.Construct;
 
 namespace Warfare.UI.Notifications
 {
-	/// <summary>
-	/// Base class of notification panel
-	/// </summary>
-	public class BaseNotification : Panel
-	{
-		/// <summary>
-		/// How long notification will active
-		/// by default notification will shown for 4.7 seconds
-		/// </summary>
-		private float showTime = 4.7f;
+    /// <summary>
+    /// Base class of notification panel
+    /// </summary>
+    public class BaseNotification : Panel
+    {
+        /// <summary>
+        /// How long notification will active
+        /// by default notification will shown for 4.7 seconds
+        /// </summary>
+        private float showTime = 4.7f;
 
-		/// <summary>
-		/// Title for your notification
-		/// </summary>
-		public Label Title { get; set; }
+        /// <summary>
+        /// Title for your notification
+        /// </summary>
+        public Label Title { get; set; }
 
-		/// <summary>
-		/// Notification message under the title
-		/// </summary>
-		public Label Message { get; set; }
+        /// <summary>
+        /// Notification message under the title
+        /// </summary>
+        public Label Message { get; set; }
 
-		// Just to draw a UI shape in left from text
-		public Label NotificationShape { get; set; }
+        // Just to draw a UI shape in left from text
+        public Label NotificationShape { get; set; }
 
-		public BaseNotification()
-		{
-			Style.Dirty();
-			NotificationShape = Add.Label(" ", "shape");
-			Title = Add.Label("Notification Title", "title");
-			Message = Add.Label("Notification text here", "message");
-		}
+        public BaseNotification()
+        {
+            Style.Dirty();
+            NotificationShape = Add.Label(" ", "shape");
+            Title = Add.Label("Notification Title", "title");
+            Message = Add.Label("Notification text here", "message");
+        }
 
-		public override void Tick()
-		{
-			base.Tick();
+        public override void Tick()
+        {
+            base.Tick();
 
-			if (showTime > 0)
-			{
-				showTime -= Sandbox.Time.Delta;
-			}
-			else
-			{
-				Sandbox.Event.Run("NotificationManager.DeleteNotification", this);
-			}
-		}
-	}
+            if (showTime > 0)
+            {
+                showTime -= Sandbox.Time.Delta;
+            }
+            else
+            {
+                Sandbox.Event.Run("NotificationManager.DeleteNotification", this);
+            }
+        }
+    }
 }

@@ -5,13 +5,13 @@ GenericNotification {
     padding-left: 45px;
     flex-direction: column;
     width: 360px;
-    background-color: rgba( green, 0.3 );
-    border-color: rgba( green, 1);
+    background-color: rgba(green, 0.3);
+    border-color: rgba(green, 1);
     border-width: 1px;
     color: white;
     border-radius: 15px;
     font-weight: bold;
-    backdrop-filter: blur( 10px );
+    backdrop-filter: blur(10px);
     left: 0%;
     transition: all 0.5s ease-in-out;
 
@@ -22,10 +22,10 @@ GenericNotification {
         bottom: -0.1%;
         left: -1%;
         border-radius: 15px;
-        background-color: rgba( green, 0.5 );
-        border-color: rgba( green, 1);
+        background-color: rgba(green, 0.5);
+        border-color: rgba(green, 1);
         border-width: 1px;
-        backdrop-filter: blur( 10px );
+        backdrop-filter: blur(10px);
     }
 
     .title {
@@ -57,13 +57,13 @@ HintNotification {
     padding-left: 45px;
     flex-direction: column;
     width: 360px;
-    background-color: rgba( grey, 0.3 );
+    background-color: rgba(grey, 0.3);
     border-color: rgba(white, 1);
     border-width: 1px;
     color: white;
     border-radius: 15px;
     font-weight: bold;
-    backdrop-filter: blur( 10px );
+    backdrop-filter: blur(10px);
     left: 0%;
     transition: all 0.5s ease-in-out;
 
@@ -74,10 +74,10 @@ HintNotification {
         bottom: -0.1%;
         left: -1%;
         border-radius: 15px;
-        background-color: rgba( grey, 0.3 );
-        border-color: rgba( white, 1);
+        background-color: rgba(grey, 0.3);
+        border-color: rgba(white, 1);
         border-width: 1px;
-        backdrop-filter: blur( 10px );
+        backdrop-filter: blur(10px);
     }
 
     .title {
@@ -110,13 +110,13 @@ ErrorNotification {
     padding-left: 45px;
     flex-direction: column;
     width: 360px;
-    background-color: rgba( red, 0.3 );
+    background-color: rgba(red, 0.3);
     color: white;
     border-color: rgba(red, 1);
     border-width: 1px;
     border-radius: 15px;
     font-weight: bold;
-    backdrop-filter: blur( 10px );
+    backdrop-filter: blur(10px);
     left: 0%;
     transition: all 0.5s ease-in-out;
 
@@ -127,10 +127,10 @@ ErrorNotification {
         bottom: -0.1%;
         left: -1%;
         border-radius: 15px;
-        background-color: rgba( red, 0.3 );
+        background-color: rgba(red, 0.3);
         border-color: rgba(red, 1);
         border-width: 1px;
-        backdrop-filter: blur( 10px );
+        backdrop-filter: blur(10px);
     }
 
     .message {
