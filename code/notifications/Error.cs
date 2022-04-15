@@ -24,20 +24,14 @@
  * 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Notifications
+namespace Warfare.Notifications
 {
-	public class Hint : NotificationBase
+	public class Error : NotificationBase
 	{
-		public Hint()
+		public Error()
 		{
-			Title.Text = "HINT:";
-			Message.Text = "This is a hint message that must notify you about something!";
+			Title.Delete();
+			Message.Text = "Something is creating error";
 		}
 	}
 }

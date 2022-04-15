@@ -24,20 +24,55 @@
  * 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace Notifications
+namespace Warfare.Notifications
 {
-	public class Hint : NotificationBase
+	/// <summary>
+	/// Base class of notification panel
+	/// </summary>
+	public class NotificationBase : Panel
 	{
-		public Hint()
+		/// <summary>
+		/// How long notification will active
+		/// by default notification will shown for 4.7 seconds
+		/// </summary>
+		private float showTime = 4.7f;
+
+		/// <summary>
+		/// Title for your notification
+		/// </summary>
+		public Label Title { get; set; }
+
+		/// <summary>
+		/// Notification message under the title
+		/// </summary>
+		public Label Message { get; set; }
+
+		// Just to draw a UI shape in left from text
+		public Label NotificationShape { get; set; }
+		
+		public NotificationBase()
 		{
-			Title.Text = "HINT:";
-			Message.Text = "This is a hint message that must notify you about something!";
+			Style.Dirty();
+			NotificationShape = Add.Label(" ", "shape");
+			Title = Add.Label("Notification Title", "title");
+			Message = Add.Label("Notification text here", "message");
+		}
+
+		public override void Tick()
+		{
+			base.Tick();
+
+			if (showTime > 0)
+			{
+				showTime -= Sandbox.Time.Delta;
+			}
+			else
+			{
+				Sandbox.Event.Run("NotificationManager.DeleteNotification", this);
+			}
 		}
 	}
 }
