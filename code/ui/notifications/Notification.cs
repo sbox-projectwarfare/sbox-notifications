@@ -43,7 +43,7 @@ namespace Warfare.UI.Notifications
     /// Base class of notification panel
     /// </summary>
     [UseTemplate, Notification("base"), Hammer.Skip]
-    public class BaseNotification : Panel
+    public class Notification : Panel
     {
         /// <summary>
         /// How long notification will active

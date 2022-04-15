@@ -27,7 +27,7 @@
 namespace Warfare.UI.Notifications
 {
     [Notification("error"), Hammer.Skip]
-    public class ErrorNotification : BaseNotification
+    public class ErrorNotification : Notification
     {
         public ErrorNotification() : base()
         {

@@ -27,7 +27,7 @@
 namespace Warfare.UI.Notifications
 {
     [Notification("hint"), Hammer.Skip]
-    public class HintNotification : BaseNotification
+    public class HintNotification : Notification
     {
         public HintNotification() : base()
         {

@@ -27,7 +27,7 @@
 namespace Warfare.UI.Notifications
 {
     [Notification("generic"), Hammer.Skip]
-    public class GenericNotification : BaseNotification
+    public class GenericNotification : Notification
     {
         public GenericNotification() : base()
         {

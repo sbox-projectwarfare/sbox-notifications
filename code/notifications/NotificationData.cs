@@ -18,7 +18,7 @@ namespace Warfare.Notifications
         }
     }
 
-    [NotificationData("base", typeof(BaseNotification)), Hammer.Skip]
+    [NotificationData("base", typeof(Notification)), Hammer.Skip]
     public partial class NotificationData
     {
         public string Title { get; set; }

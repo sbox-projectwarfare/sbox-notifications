@@ -33,7 +33,7 @@ namespace Warfare.UI.Notifications
                 NotificationData notificationData = notificationManager.NotificationList[0];
                 notificationManager.NotificationList.RemoveAt(0);
 
-                BaseNotification baseNotification = Library.Create<BaseNotification>(notificationData.NotificationName);
+                Notification baseNotification = Library.Create<Notification>(notificationData.NotificationName);
                 baseNotification.Data = notificationData;
 
                 AddChild(baseNotification);
