@@ -28,10 +28,12 @@ namespace Warfare.UI.Notifications
 {
     public class HintNotification : BaseNotification
     {
-        public HintNotification()
+        public HintNotification() : base()
         {
-            Title.Text = "HINT:";
-            Message.Text = "This is a hint message that must notify you about something!";
+            AddClass("gray");
+
+            Title = "HINT:";
+            Message = "This is a hint message that must notify you about something!";
         }
     }
 }

@@ -1,8 +1,11 @@
 .hud-hint-text {
     position: absolute;
     width: 100%;
-    justify-content: center;
-    color: yellow;
+    text-align: center;
     font-size: 35px;
     font-weight: bold;
+
+    color: white;
+    padding: 20px;
+    background-color: black;
 }

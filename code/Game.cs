@@ -27,16 +27,11 @@ namespace Warfare
     /// </summary>
     public partial class MyGame : Game
     {
-        public NotificationManager NotificationManager;
-
         public MyGame() : base()
         {
-            // Initialize notification manager
-            NotificationManager = new NotificationManager();
-
-            // Simple test game's UI
             if (IsClient)
             {
+                _ = new NotificationManager();
                 _ = new Hud();
             }
         }

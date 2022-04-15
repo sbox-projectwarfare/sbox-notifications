@@ -25,13 +25,13 @@
 */
 
 using Sandbox.UI;
-using Sandbox.UI.Construct;
 
 namespace Warfare.UI.Notifications
 {
     /// <summary>
     /// Base class of notification panel
     /// </summary>
+    [UseTemplate]
     public class BaseNotification : Panel
     {
         /// <summary>
@@ -43,22 +43,20 @@ namespace Warfare.UI.Notifications
         /// <summary>
         /// Title for your notification
         /// </summary>
-        public Label Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Notification message under the title
         /// </summary>
-        public Label Message { get; set; }
+        public string Message { get; set; }
 
         // Just to draw a UI shape in left from text
         public Label NotificationShape { get; set; }
 
         public BaseNotification()
         {
-            Style.Dirty();
-            NotificationShape = Add.Label(" ", "shape");
-            Title = Add.Label("Notification Title", "title");
-            Message = Add.Label("Notification text here", "message");
+            Title = "Notification Title";
+            Message = "Notification text here";
         }
 
         public override void Tick()

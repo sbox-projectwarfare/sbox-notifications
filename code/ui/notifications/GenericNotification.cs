@@ -28,10 +28,12 @@ namespace Warfare.UI.Notifications
 {
     public class GenericNotification : BaseNotification
     {
-        public GenericNotification()
+        public GenericNotification() : base()
         {
-            Title.Text = "Notification";
-            Message.Text = "Test notification message\nAnd of course it should support a transition in a new line";
+            AddClass("green");
+
+            Title = "Notification";
+            Message = "Test notification message\nAnd of course it should support a transition in a new line";
         }
     }
 }

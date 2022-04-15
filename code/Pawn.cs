@@ -34,7 +34,7 @@ namespace Warfare
                 return;
             }
 
-            NotificationManager notificationManager = (Game.Current as MyGame).NotificationManager;
+            NotificationManager notificationManager = NotificationManager.Instance;
 
             if (Input.Released(InputButton.Slot1))
             {
@@ -53,14 +53,6 @@ namespace Warfare
                 Log.Info("Pressed Slot 3 key");
                 notificationManager.ShowNotification(NotificationType.Error, "Error created by player!");
             }
-        }
-
-        /// <summary>
-        /// Called every frame on the client
-        /// </summary>
-        public override void FrameSimulate(Client cl)
-        {
-            base.FrameSimulate(cl);
         }
     }
 }
