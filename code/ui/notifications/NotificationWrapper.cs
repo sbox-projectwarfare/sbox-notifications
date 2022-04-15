@@ -14,7 +14,7 @@ namespace Warfare.UI.Notifications
 
         public NotifcationWrapper()
         {
-            AddClass("wrapper");
+            AddClass("notification-wrapper");
         }
 
         public override void Tick()
