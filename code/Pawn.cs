@@ -4,14 +4,14 @@ using Warfare.Notifications;
 
 namespace Warfare
 {
-	partial class Pawn : AnimEntity
+	public partial class Pawn : AnimEntity
 	{
 		public static Model PlayerModel { get; set; } = Model.Load("models/sbox_props/watermelon/watermelon.vmdl");
 
 		/// <summary>
-		/// Called when the entity is first created 
+		/// Called when the entity is first created
 		/// </summary>
-		/// 
+		///
 		public override void Spawn()
 		{
 			base.Spawn();

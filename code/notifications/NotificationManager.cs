@@ -1,19 +1,19 @@
 ﻿/*
  * Notification manager script code is under MIT License
- * 
+ *
  * Copyright (c) 2022 s&box MilitaryRP
  * Author: Val Zubko (5FB5)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,7 +21,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
+ *
 */
 
 using System.Collections.Generic;
@@ -29,6 +29,10 @@ using System.Linq;
 
 using Sandbox;
 using Sandbox.UI;
+
+using Warfare.UI.Notifications;
+
+#pragma warning disable IDE0051
 
 namespace Warfare.Notifications
 {
@@ -49,18 +53,18 @@ namespace Warfare.Notifications
 	[Library]
 	public partial class NotificationManager : HudEntity<RootPanel>
 	{
-		private const string stylePath = "/notifications/styles/NotificationsStyle.scss";
-		private List<NotificationBase> NotificationList { get; set; } = null;
+		private const string STYLEPATH = "/ui/notifications/styles/NotificationsStyle.scss";
+		private List<BaseNotification> NotificationList { get; set; } = null;
 
 		/// <summary>
 		/// How much panels will be shown on the screen
 		/// </summary>
-		private const int notificationLimit = 10;
+		private const int NOTIFICATIONLIMIT = 10;
 
 		/// <summary>
 		/// Indend between panels
 		/// </summary>
-		private const int positionIndend = -30;
+		private const int POSITIONINDEND = -30;
 
 		public NotificationManager()
 		{
@@ -69,7 +73,7 @@ namespace Warfare.Notifications
 				return;
 			}
 
-			RootPanel.StyleSheet.Load(stylePath);
+			RootPanel.StyleSheet.Load(STYLEPATH);
 
 			NotificationList = new();
 
@@ -77,7 +81,7 @@ namespace Warfare.Notifications
 		}
 
 		// TODO: FIFO stuff
-		private void CheckList()
+		private static void CheckList()
 		{
 			Log.Warning("Notification Library: TODO: CheckList()");
 
@@ -85,7 +89,7 @@ namespace Warfare.Notifications
 		}
 
 		[Event("NotificationManager.DeleteNotification")]
-		private void OnDeleteNotification(NotificationBase _Notification)
+		private void OnDeleteNotification(BaseNotification _Notification)
 		{
 			if (_Notification == null)
 			{
@@ -94,16 +98,16 @@ namespace Warfare.Notifications
 				return;
 			}
 
-			foreach (NotificationBase notificationFromList in NotificationList)
+			foreach (BaseNotification notificationFromList in NotificationList)
 			{
 				Log.Info("Notification Library: Deleting notification...");
 
-				NotificationList.Remove(notificationFromList); // delete it from list and itself 
+				NotificationList.Remove(notificationFromList); // delete it from list and itself
 				_Notification.Delete();
 
 				Log.Info("Notification Library: Notification deleted!");
 
-				CheckList();
+                CheckList();
 
 				return;
 			}
@@ -113,18 +117,18 @@ namespace Warfare.Notifications
 		/// Returns an instance of panel from enum.
 		/// Should be updated for custom panel type
 		/// </summary>
-		private static NotificationBase GetTypeFromEnum(NotificationType type) => type switch
+		private static BaseNotification GetTypeFromEnum(NotificationType type) => type switch
 		{
-			NotificationType.Generic => new Generic(),
-			NotificationType.Hint => new Hint(),
-			NotificationType.Error => new Error(),
+			NotificationType.Generic => new GenericNotification(),
+			NotificationType.Hint => new HintNotification(),
+			NotificationType.Error => new ErrorNotification(),
 			_ => null
 		};
 
 		[ClientRpc]
 		public void ShowNotification(NotificationType type, string text)
 		{
-			NotificationBase NewPanel = GetTypeFromEnum(type);
+			BaseNotification NewPanel = GetTypeFromEnum(type);
 
 			if (NewPanel == null)
 			{
@@ -137,15 +141,15 @@ namespace Warfare.Notifications
 
 			// If count of panels isn't more than limit, we add it to screen
 			// in other case we just add it to the list, so we can draw the panel later
-			if (NotificationList.Count <= notificationLimit - 1) // -1 because it counting from 0
+			if (NotificationList.Count <= NOTIFICATIONLIMIT - 1) // -1 because it counting from 0
 			{
 				RootPanel.AddChild(NewPanel);
 
 				// If there is more than 1 panel on the screen, perform repositioning
 				if (NotificationList.Count > 0)
 				{
-					var lastPosition = NotificationList.Last().Box.Rect.bottom; // get position from last panel
-					var newPosition = NotificationList.Last().ScaleFromScreen * (lastPosition + positionIndend);
+					float lastPosition = NotificationList.Last().Box.Rect.bottom; // get position from last panel
+					float newPosition = NotificationList.Last().ScaleFromScreen * (lastPosition + POSITIONINDEND);
 
 					NewPanel.Style.Top = newPosition; // update panel style
 					NewPanel.Box.Rect.bottom = newPosition; // save value for extracting it in the next call

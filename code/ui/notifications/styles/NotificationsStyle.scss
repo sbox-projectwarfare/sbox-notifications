@@ -1,4 +1,4 @@
-Generic {
+GenericNotification {
     position: absolute;
     margin: 50 50px;
     padding: 5 40px;
@@ -50,7 +50,7 @@ Generic {
     }
 }
 
-Hint {
+HintNotification {
     position: absolute;
     margin: 50 50px;
     padding: 5 40px;
@@ -102,7 +102,7 @@ Hint {
     }
 }
 
-Error {
+ErrorNotification {
     position: absolute;
     margin: 50 50px;
     left: -50%;
