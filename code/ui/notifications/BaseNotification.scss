@@ -1,10 +1,10 @@
 .notification {
-    position: absolute;
-    margin: 50px 50px;
+    margin: 10px;
     padding: 5px 40px;
     padding-left: 45px;
     flex-direction: column;
-    width: 360px;
+    min-width: 360px;
+    max-width: 500px;
     border-width: 1px;
     color: white;
     border-radius: 15px;
