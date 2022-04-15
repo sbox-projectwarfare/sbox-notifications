@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Sandbox;
 
@@ -34,13 +35,23 @@ namespace Warfare.Notifications
     /// <summary>
     /// Main class for working with notifications
     /// </summary>
-    public partial class NotificationManager
+    public partial class NotificationStack
     {
-        public static NotificationManager Instance { get; set; }
+        public static NotificationStack Instance { get; set; }
 
-        public List<NotificationData> NotificationList { get; internal set; } = new();
+        private Stack<NotificationData> Stack { get; set; } = new();
 
-        public NotificationManager()
+        public int Count
+        {
+            get => Stack.Count;
+        }
+
+        public IEnumerable<NotificationData> All
+        {
+            get => Stack.AsEnumerable();
+        }
+
+        public NotificationStack()
         {
             Instance = this;
         }
@@ -59,19 +70,23 @@ namespace Warfare.Notifications
 
             notificationData.Read(data);
 
-            ShowNotification(notificationData);
+            Instance?.Stack.Push(notificationData);
         }
 
-        public static void ShowNotification<T>(T notificationData) where T : NotificationData
+        public static void Push<T>(To to, T notificationData) where T : NotificationData
         {
             if (Host.IsServer)
             {
-                AddNotification(notificationData.Name, notificationData.Write());
+                AddNotification(to, notificationData.Name, notificationData.Write());
             }
             else
             {
-                Instance?.NotificationList.Add(notificationData);
+                Instance?.Stack.Push(notificationData);
             }
         }
+
+        public static void Push<T>(T notificationData) where T : NotificationData => Push(To.Everyone, notificationData);
+
+        public NotificationData Pop() => Stack.Pop();
     }
 }

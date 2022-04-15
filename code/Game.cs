@@ -31,7 +31,7 @@ namespace Warfare
         {
             if (IsClient)
             {
-                _ = new NotificationManager();
+                _ = new NotificationStack();
                 _ = new Hud();
             }
         }
