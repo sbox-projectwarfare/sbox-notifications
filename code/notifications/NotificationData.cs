@@ -1,16 +1,55 @@
+using System;
 using System.IO;
+
 using Sandbox;
+
+using Warfare.UI.Notifications;
 
 namespace Warfare.Notifications
 {
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    public class NotificationDataAttribute : LibraryAttribute
+    {
+        public Type NotificationType { get; set; }
+
+        public NotificationDataAttribute(string name, Type notificationType) : base("pw_notificationdata_" + name)
+        {
+            NotificationType = notificationType;
+        }
+    }
+
+    [NotificationData("base", typeof(BaseNotification)), Hammer.Skip]
     public partial class NotificationData
     {
         public string Title { get; set; } = "Notification Title";
 
         public string Message { get; set; } = "Notification text here";
 
+        public string Name { get; set; }
+
+        public string NotificationName { get; set; }
+
+        public NotificationData()
+        {
+            LibraryAttribute libraryAttribute = Library.GetAttribute(GetType());
+
+            Name = libraryAttribute.Name;
+
+            if (libraryAttribute is NotificationDataAttribute notificationDataAttribute)
+            {
+                LibraryAttribute attribute = Library.GetAttribute(notificationDataAttribute.NotificationType);
+
+                if (attribute is NotificationAttribute)
+                {
+                    NotificationName = attribute.Name;
+                }
+            }
+        }
+
         protected virtual void WriteData(BinaryWriter binaryWriter)
         {
+            binaryWriter.Write(Name);
+            binaryWriter.Write(NotificationName);
             binaryWriter.Write(Title);
             binaryWriter.Write(Message);
         }
@@ -31,18 +70,18 @@ namespace Warfare.Notifications
 
         protected virtual void ReadData(BinaryReader binaryReader)
         {
+            Name = binaryReader.ReadString();
+            NotificationName = binaryReader.ReadString();
             Title = binaryReader.ReadString();
             Message = binaryReader.ReadString();
         }
 
-        public static NotificationData Read(byte[] bytes)
+        public void Read(byte[] bytes)
         {
             using MemoryStream memoryStream = new(bytes);
             using BinaryReader binaryReader = new(memoryStream);
 
-            NotificationData notificationData = new();
-            notificationData.ReadData(binaryReader);
-            return notificationData;
+            ReadData(binaryReader);
         }
     }
 }

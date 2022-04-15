@@ -24,6 +24,8 @@
  *
 */
 
+using System;
+
 using Sandbox;
 using Sandbox.UI;
 
@@ -31,17 +33,36 @@ using Warfare.Notifications;
 
 namespace Warfare.UI.Notifications
 {
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    public class NotificationAttribute : LibraryAttribute
+    {
+        public NotificationAttribute(string name) : base("pw_notification_" + name) { }
+    }
+
     /// <summary>
     /// Base class of notification panel
     /// </summary>
-    [UseTemplate]
+    [UseTemplate, Notification("base"), Hammer.Skip]
     public class BaseNotification : Panel
     {
         /// <summary>
         /// How long notification will active
         /// by default notification will shown for 4.7 seconds
         /// </summary>
-        private TimeSince _showTime = -4.7f;
+        public float DisplayTime = 4.7f;
+
+        private TimeSince _timeSinceShown;
+
+        public bool IsDisplayed
+        {
+            get => _isDisplayed;
+            set
+            {
+                _timeSinceShown = -DisplayTime;
+                _isDisplayed = value;
+            }
+        }
+        private bool _isDisplayed = false;
 
         public NotificationData Data { get; set; } = new();
 
@@ -68,10 +89,8 @@ namespace Warfare.UI.Notifications
         {
             base.Tick();
 
-            if (_showTime >= 0)
+            if (IsDisplayed && _timeSinceShown >= 0)
             {
-                Event.Run("NotificationManager.DeleteNotification", this);
-
                 Delete();
             }
         }

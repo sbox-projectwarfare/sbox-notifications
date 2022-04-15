@@ -24,27 +24,13 @@
  *
 */
 
+using System;
 using System.Collections.Generic;
 
 using Sandbox;
 
-using Warfare.UI.Notifications;
-
-#pragma warning disable IDE0051
-
 namespace Warfare.Notifications
 {
-
-    /// <summary>
-    /// Types of available notifications
-    /// </summary>
-    public enum NotificationType
-    {
-        Generic,
-        Hint,
-        Error
-    }
-
     /// <summary>
     /// Main class for working with notifications
     /// </summary>
@@ -52,55 +38,40 @@ namespace Warfare.Notifications
     {
         public static NotificationManager Instance { get; set; }
 
-        private List<BaseNotification> NotificationList { get; set; } = new();
-
-        /// <summary>
-        /// How much panels will be shown on the screen
-        /// </summary>
-        private const int NOTIFICATION_LIMIT = 6;
+        public List<NotificationData> NotificationList { get; internal set; } = new();
 
         public NotificationManager()
         {
             Instance = this;
         }
 
-        [Event("NotificationManager.DeleteNotification")]
-        private void OnDeleteNotification(BaseNotification notification)
+        [ClientRpc]
+        public static void AddNotification(string libraryName, byte[] data)
         {
-            Assert.NotNull(notification);
+            Type notificationDataType = Library.Get<NotificationData>(libraryName);
 
-            foreach (BaseNotification notificationFromList in NotificationList)
+            if (notificationDataType == null)
             {
-                if (notification == notificationFromList)
-                {
-                    NotificationList.Remove(notificationFromList); // delete it from list and itself
-                }
+                return;
             }
+
+            NotificationData notificationData = Library.Create<NotificationData>(notificationDataType);
+
+            notificationData.Read(data);
+
+            Instance?.NotificationList.Add(notificationData);
         }
 
-        /// <summary>
-        /// Returns an instance of panel from enum.
-        /// Should be updated for custom panel type
-        /// </summary>
-        private static BaseNotification GetTypeFromEnum(NotificationType type) => type switch
+        public static void ShowNotification<T>(T notificationData) where T : NotificationData
         {
-            NotificationType.Generic => new GenericNotification(),
-            NotificationType.Hint => new HintNotification(),
-            NotificationType.Error => new ErrorNotification(),
-            _ => null
-        };
-
-        [ClientRpc]
-        public static void ShowNotification(NotificationType type, byte[] data)
-        {
-            BaseNotification baseNotification = GetTypeFromEnum(type);
-            baseNotification.Data = NotificationData.Read(data);
-
-            Assert.NotNull(baseNotification);
-
-            Instance?.NotificationList.Add(baseNotification);
-
-            UI.Hud.Instance?.RootPanel.AddChild(baseNotification);
+            if (Host.IsServer)
+            {
+                AddNotification(notificationData.Name, notificationData.Write());
+            }
+            else
+            {
+                Instance?.NotificationList.Add(notificationData);
+            }
         }
     }
 }

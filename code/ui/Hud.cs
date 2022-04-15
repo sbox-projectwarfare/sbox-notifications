@@ -16,6 +16,8 @@ namespace Warfare.UI
 
             RootPanel.StyleSheet.Load("ui/Hud.scss");
             MainText = RootPanel.Add.Label("For client:\n1 - Generic notification, 2 - Hint notification, 3 - Error notification", "hud-hint-text");
+
+            RootPanel.AddChild<Notifications.NotifcationWrapper>();
         }
 
         [Event.Hotload]

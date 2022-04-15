@@ -37,10 +37,11 @@ namespace Warfare
                     {
                         Log.Info("Pressed Slot 1 key on server");
 
-                        NotificationManager.ShowNotification(NotificationType.Generic, new NotificationData()
+                        NotificationManager.ShowNotification(new NotificationData()
                         {
+                            NotificationName = Library.GetAttribute(typeof(UI.Notifications.GenericNotification)).Name,
                             Message = "Notification created by player on server!"
-                        }.Write());
+                        });
                     }
                 }
 
@@ -50,19 +51,20 @@ namespace Warfare
             if (Input.Released(InputButton.Slot2))
             {
                 Log.Info("Pressed Slot 2 key on client");
-                NotificationManager.ShowNotification(NotificationType.Hint, new NotificationData()
+                NotificationManager.ShowNotification(new NotificationData()
                 {
+                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.HintNotification)).Name,
                     Message = "Hint created by player on client!"
-                }.Write());
+                });
             }
 
             if (Input.Released(InputButton.Slot3))
             {
                 Log.Info("Pressed Slot 3 key");
-                NotificationManager.ShowNotification(NotificationType.Error, new NotificationData()
+                NotificationManager.ShowNotification(new ErrorNotificationData()
                 {
                     Message = "Error created by player on client!"
-                }.Write());
+                });
             }
         }
     }
