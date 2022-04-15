@@ -24,7 +24,10 @@
  *
 */
 
+using Sandbox;
 using Sandbox.UI;
+
+using Warfare.Notifications;
 
 namespace Warfare.UI.Notifications
 {
@@ -38,38 +41,38 @@ namespace Warfare.UI.Notifications
         /// How long notification will active
         /// by default notification will shown for 4.7 seconds
         /// </summary>
-        private float showTime = 4.7f;
+        private TimeSince _showTime = -4.7f;
+
+        public NotificationData Data { get; set; } = new();
 
         /// <summary>
         /// Title for your notification
         /// </summary>
-        public string Title { get; set; }
+        public string Title
+        {
+            get => Data.Title;
+        }
 
         /// <summary>
         /// Notification message under the title
         /// </summary>
-        public string Message { get; set; }
+        public string Message
+        {
+            get => Data.Message;
+        }
 
         // Just to draw a UI shape in left from text
-        public Label NotificationShape { get; set; }
-
-        public BaseNotification()
-        {
-            Title = "Notification Title";
-            Message = "Notification text here";
-        }
+        public Panel NotificationShape { get; set; }
 
         public override void Tick()
         {
             base.Tick();
 
-            if (showTime > 0)
+            if (_showTime >= 0)
             {
-                showTime -= Sandbox.Time.Delta;
-            }
-            else
-            {
-                Sandbox.Event.Run("NotificationManager.DeleteNotification", this);
+                Event.Run("NotificationManager.DeleteNotification", this);
+
+                Delete();
             }
         }
     }

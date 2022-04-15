@@ -29,29 +29,40 @@ namespace Warfare
         {
             base.Simulate(cl);
 
-            if (!IsClient)
+            if (IsServer)
             {
+                using (Prediction.Off())
+                {
+                    if (Input.Released(InputButton.Slot1))
+                    {
+                        Log.Info("Pressed Slot 1 key on server");
+
+                        NotificationManager.ShowNotification(NotificationType.Generic, new NotificationData()
+                        {
+                            Message = "Notification created by player on server!"
+                        }.Write());
+                    }
+                }
+
                 return;
-            }
-
-            NotificationManager notificationManager = NotificationManager.Instance;
-
-            if (Input.Released(InputButton.Slot1))
-            {
-                Log.Info("Pressed Slot 1 key");
-                notificationManager.ShowNotification(NotificationType.Generic, "Notification created by player!");
             }
 
             if (Input.Released(InputButton.Slot2))
             {
-                Log.Info("Pressed Slot 2 key");
-                notificationManager.ShowNotification(NotificationType.Hint, "Hint created by player!");
+                Log.Info("Pressed Slot 2 key on client");
+                NotificationManager.ShowNotification(NotificationType.Hint, new NotificationData()
+                {
+                    Message = "Hint created by player on client!"
+                }.Write());
             }
 
             if (Input.Released(InputButton.Slot3))
             {
                 Log.Info("Pressed Slot 3 key");
-                notificationManager.ShowNotification(NotificationType.Error, "Error created by player!");
+                NotificationManager.ShowNotification(NotificationType.Error, new NotificationData()
+                {
+                    Message = "Error created by player on client!"
+                }.Write());
             }
         }
     }

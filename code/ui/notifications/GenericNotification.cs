@@ -32,8 +32,8 @@ namespace Warfare.UI.Notifications
         {
             AddClass("green");
 
-            Title = "Notification";
-            Message = "Test notification message\nAnd of course it should support a transition in a new line";
+            Data.Title = "Notification";
+            Data.Message = "Test notification message\nAnd of course it should support a transition in a new line";
         }
     }
 }

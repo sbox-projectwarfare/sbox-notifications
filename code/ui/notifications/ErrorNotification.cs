@@ -32,7 +32,7 @@ namespace Warfare.UI.Notifications
         {
             AddClass("red");
 
-            Message = "Something is creating error";
+            Data.Message = "Something is creating error";
         }
     }
 }

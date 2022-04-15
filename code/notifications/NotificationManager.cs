@@ -25,10 +25,8 @@
 */
 
 using System.Collections.Generic;
-using System.Linq;
 
 using Sandbox;
-using Sandbox.UI;
 
 using Warfare.UI.Notifications;
 
@@ -50,7 +48,7 @@ namespace Warfare.Notifications
     /// <summary>
     /// Main class for working with notifications
     /// </summary>
-    public partial class NotificationManager : HudEntity<RootPanel>
+    public partial class NotificationManager
     {
         public static NotificationManager Instance { get; set; }
 
@@ -59,48 +57,24 @@ namespace Warfare.Notifications
         /// <summary>
         /// How much panels will be shown on the screen
         /// </summary>
-        private const int NOTIFICATION_LIMIT = 10;
-
-        /// <summary>
-        /// Indend between panels
-        /// </summary>
-        private const int POSITION_INDEND = -30;
+        private const int NOTIFICATION_LIMIT = 6;
 
         public NotificationManager()
         {
             Instance = this;
-
-            Log.Info("Notification Library: Client NotificationManager Initialized");
-        }
-
-        // TODO: FIFO stuff
-        private static void CheckList()
-        {
-            Log.Warning("Notification Library: TODO: CheckList()");
         }
 
         [Event("NotificationManager.DeleteNotification")]
-        private void OnDeleteNotification(BaseNotification _Notification)
+        private void OnDeleteNotification(BaseNotification notification)
         {
-            if (_Notification == null)
-            {
-                Log.Error("Notification Library: OnDeleteNotification() - Notification is null");
-
-                return;
-            }
+            Assert.NotNull(notification);
 
             foreach (BaseNotification notificationFromList in NotificationList)
             {
-                Log.Info("Notification Library: Deleting notification...");
-
-                NotificationList.Remove(notificationFromList); // delete it from list and itself
-                _Notification.Delete();
-
-                Log.Info("Notification Library: Notification deleted!");
-
-                CheckList();
-
-                return;
+                if (notification == notificationFromList)
+                {
+                    NotificationList.Remove(notificationFromList); // delete it from list and itself
+                }
             }
         }
 
@@ -117,42 +91,16 @@ namespace Warfare.Notifications
         };
 
         [ClientRpc]
-        public void ShowNotification(NotificationType type, string text)
+        public static void ShowNotification(NotificationType type, byte[] data)
         {
-            BaseNotification NewPanel = GetTypeFromEnum(type);
+            BaseNotification baseNotification = GetTypeFromEnum(type);
+            baseNotification.Data = NotificationData.Read(data);
 
-            if (NewPanel == null)
-            {
-                Log.Error("Notification Library: ShowNotification() - Notification based on " + type + " type is null!");
+            Assert.NotNull(baseNotification);
 
-                return;
-            }
+            Instance?.NotificationList.Add(baseNotification);
 
-            NewPanel.Message = text;
-
-            // If count of panels isn't more than limit, we add it to screen
-            // in other case we just add it to the list, so we can draw the panel later
-            if (NotificationList.Count <= NOTIFICATION_LIMIT - 1) // -1 because it counting from 0
-            {
-                RootPanel.AddChild(NewPanel);
-
-                // If there is more than 1 panel on the screen, perform repositioning
-                if (NotificationList.Count > 0)
-                {
-                    float lastPosition = NotificationList.Last().Box.Rect.bottom; // get position from last panel
-                    float newPosition = NotificationList.Last().ScaleFromScreen * (lastPosition + POSITION_INDEND);
-
-                    NewPanel.Style.Top = newPosition; // update panel style
-                    NewPanel.Box.Rect.bottom = newPosition; // save value for extracting it in the next call
-                }
-
-                NotificationList.Add(NewPanel);
-            }
-            //else if ( NotificationList.Count > notificationLimit )
-            //{
-            //	Log.Info( "Notification Library: Count of panels is more than limit. Notification added to queue" );
-            //	NotificationList.Add( NewPanel );
-            //}
+            UI.Hud.Instance?.RootPanel.AddChild(baseNotification);
         }
     }
 }
