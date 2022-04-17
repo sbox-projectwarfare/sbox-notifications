@@ -377,3 +377,4 @@ maps/*.vmap
 maps/_bakeresourcecache
 maps/*.vpk
 maps/*.los
+example_game/code/Properties/launchSettings.json

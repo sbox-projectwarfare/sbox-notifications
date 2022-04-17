@@ -1,4 +1,4 @@
-﻿using Sandbox;
+using Sandbox;
 
 using Warfare.Notifications;
 
@@ -62,9 +62,11 @@ namespace Warfare
             if (Input.Released(InputButton.Slot3))
             {
                 Log.Info("Pressed Slot 3 key");
-                NotificationStack.Push(new ErrorNotificationData()
+                NotificationStack.Push(new NotificationData()
                 {
-                    Message = "Error created by player on client!"
+                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.MyNotification)).Name,
+                    Title = "OMG! New Notification!!!",
+                    Message = "Custom notification created by player on client!"
                 });
             }
         }

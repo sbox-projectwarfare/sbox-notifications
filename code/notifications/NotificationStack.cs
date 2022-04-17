@@ -1,8 +1,10 @@
-﻿/*
- * Notification manager script code is under MIT License
+/*
+ * Notification stack script code is under MIT License
  *
  * Copyright (c) 2022 s&box MilitaryRP
+ * 
  * Author: Val Zubko (5FB5)
+ * Contributors: Alf21
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
