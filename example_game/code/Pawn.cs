@@ -64,7 +64,7 @@ namespace Warfare
                 Log.Info("Pressed Slot 3 key");
                 NotificationStack.Push(new NotificationData()
                 {
-                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.MyNotification)).Name,
+                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.ErrorNotification)).Name,
                     Title = "OMG! New Notification!!!",
                     Message = "Custom notification created by player on client!"
                 });
