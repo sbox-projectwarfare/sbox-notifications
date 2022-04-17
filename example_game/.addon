@@ -1,13 +1,19 @@
 {
-  "Title": "MilitaryRP Notifications example game",
+  "Title": "ProjectWarefare - Notifications",
   "Type": "game",
-  "Org": "millitaryrp",
-  "Ident": "militaryrp_notifications",
+  "Org": "local",
+  "Ident": "projectwarefare___notifications",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
   "ResourcePaths": null,
   "HasCode": true,
   "CodePath": "/code/",
-  "RootNamespace": "Notifications"
+  "RootNamespace": "Warfare",
+  "Metadata": {
+    "MapList": [
+      "facepunch.construct"
+    ],
+    "MinPlayers": 1
+  }
 }

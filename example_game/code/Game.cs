@@ -1,95 +1,64 @@
 ﻿/*
  * This is an example game to show you how notification library works
- * It shows some test cases of using it in main game's script 
+ * It shows some test cases of using it in main game's script
  * And on client
  *
  */
 
-using Sandbox;
-using Sandbox.UI.Construct;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+
+using Sandbox;
+
+using Warfare.Notifications;
+using Warfare.UI;
 
 //
 // You don't need to put things in a namespace, but it doesn't hurt.
 //
-namespace Sandbox
+namespace Warfare
 {
-	/// <summary>
-	/// This is your game class. This is an entity that is created serverside when
-	/// the game starts, and is replicated to the client. 
-	/// 
-	/// You can use this to create things like HUDs and declare which player class
-	/// to use for spawned players.
-	/// </summary>
-	public partial class MyGame : Sandbox.Game
-	{
-		public Notifications.NotificationManager NotificationManager;
-		
-		private int test = 0; // for test case
+    /// <summary>
+    /// This is your game class. This is an entity that is created serverside when
+    /// the game starts, and is replicated to the client.
+    ///
+    /// You can use this to create things like HUDs and declare which player class
+    /// to use for spawned players.
+    /// </summary>
+    public partial class MyGame : Game
+    {
+        public MyGame() : base()
+        {
+            if (IsClient)
+            {
+                _ = new NotificationStack();
+                _ = new Hud();
+            }
+        }
 
-		public MyGame()
-		{
-			// Simple test game's UI
-			new GameUi();
+        /// <summary>
+        /// A client has joined the server. Make them a pawn to play with
+        /// </summary>
+        public override void ClientJoined(Client client)
+        {
+            base.ClientJoined(client);
 
-			// Initialize notification manager
-			NotificationManager = new Notifications.NotificationManager();
-		}
+            // Create a pawn for this client to play with
+            Pawn pawn = new();
+            client.Pawn = pawn;
 
-		/// <summary>
-		/// A client has joined the server. Make them a pawn to play with
-		/// </summary>
-		public override void ClientJoined( Client client )
-		{
-			base.ClientJoined( client );
+            // chose a random one
+            SpawnPoint randomSpawnPoint = All.OfType<SpawnPoint>().OrderBy(x => Guid.NewGuid()).FirstOrDefault();
 
-			// Create a pawn for this client to play with
-			var pawn = new Pawn();
-			client.Pawn = pawn;
+            // if it exists, place the pawn there
+            if (randomSpawnPoint != null)
+            {
+                Transform tx = randomSpawnPoint.Transform;
+                tx.Position += Vector3.Up * 50.0f; // raise it up
+                pawn.Transform = tx;
+            }
 
-			// Get all of the spawnpoints
-			var spawnpoints = Entity.All.OfType<SpawnPoint>();
-
-			// chose a random one
-			var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
-
-			// if it exists, place the pawn there
-			if ( randomSpawnPoint != null )
-			{
-				var tx = randomSpawnPoint.Transform;
-				tx.Position = tx.Position + Vector3.Up * 50.0f; // raise it up
-				pawn.Transform = tx;
-			}
-		}
-
-		public override void Simulate( Client cl )
-		{
-			base.Simulate( cl );
-
-			// TODO: spawn panels via timer
-
-			if ( IsServer )
-			{
-				// Test case
-				//if ( test == 0 )
-				//{
-				//	// single test case
-				//	//NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script!" );
-				//	NotificationManager.ShowNotification( To.Single( cl ), Notifications.NotificationType.Error, "Error for current player from the game script!" );
-
-				//	//	// multiple test case
-				//	//	//for ( int i = 0; i < 2; i++ )
-				//	//	//{
-				//	//	//	NotificationManager.ShowNotification( Notifications.NotificationType.Error, "Error for all players from the game script #" + i );
-				//	//	//}
-
-				//	test = 1;
-				//}
-			}
-
-		}
-	}
+            pawn.Spawn();
+        }
+    }
 }
