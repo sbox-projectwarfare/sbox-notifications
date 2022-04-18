@@ -22,7 +22,7 @@ If you want to make your own notification type with custom style, you need to do
 
 ![Custom notification example](readme_img/custom_notification.png)
 
-* Open `styles/NotificationsStyle.scss` file and set style for your custom notification type. For example, since we write "yellow" in class, we should. If you have any problems, check styles code above.
+* Open `styles/NotificationsStyle.scss` file and set style for your custom notification type. For example, since we wrote "yellow" in class, we should add `&.yellow` class style realization. If you have any problems, check styles code above.
 
 ![Style example](readme_img/style_example.png)
 * Now you can call `NotificationStack.Push` method with your new type.
