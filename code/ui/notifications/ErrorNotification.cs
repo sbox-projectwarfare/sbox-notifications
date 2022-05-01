@@ -26,7 +26,6 @@
 
 namespace ProjectWarfare.UI.Notifications
 {
-    [Notification("error"), Hammer.Skip]
     public class ErrorNotification : Notification
     {
         public ErrorNotification() : base()

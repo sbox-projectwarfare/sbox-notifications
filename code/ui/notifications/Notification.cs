@@ -24,8 +24,6 @@
  *
 */
 
-using System;
-
 using Sandbox;
 using Sandbox.UI;
 
@@ -33,16 +31,11 @@ using ProjectWarfare.Notifications;
 
 namespace ProjectWarfare.UI.Notifications
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class NotificationAttribute : LibraryAttribute
-    {
-        public NotificationAttribute(string name) : base("pw_notification_" + name) { }
-    }
 
     /// <summary>
     /// Base class of notification panel
     /// </summary>
-    [UseTemplate, Notification("base"), Hammer.Skip]
+    [UseTemplate]
     public class Notification : Panel
     {
         /// <summary>

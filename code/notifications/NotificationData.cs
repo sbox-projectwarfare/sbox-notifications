@@ -7,43 +7,22 @@ using ProjectWarfare.UI.Notifications;
 
 namespace ProjectWarfare.Notifications
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class NotificationDataAttribute : LibraryAttribute
-    {
-        public Type NotificationType { get; set; }
-
-        public NotificationDataAttribute(string name, Type notificationType) : base("pw_notificationdata_" + name)
-        {
-            NotificationType = notificationType;
-        }
-    }
-
-    [NotificationData("base", typeof(Notification)), Hammer.Skip]
-    public partial class NotificationData
+    public partial class NotificationData : LibraryClass
     {
         public string Title { get; set; }
 
         public string Message { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         public string NotificationName { get; set; }
 
-        public NotificationData()
+        public virtual Type NotificationType => typeof(Notification);
+
+        public NotificationData() : base()
         {
-            LibraryAttribute libraryAttribute = Library.GetAttribute(GetType());
-
-            Name = libraryAttribute.Name;
-
-            if (libraryAttribute is NotificationDataAttribute notificationDataAttribute)
-            {
-                LibraryAttribute attribute = Library.GetAttribute(notificationDataAttribute.NotificationType);
-
-                if (attribute is NotificationAttribute)
-                {
-                    NotificationName = attribute.Name;
-                }
-            }
+            Name = Library.GetAttribute(GetType()).Name;
+            NotificationName = Library.GetAttribute(NotificationType).Name;
         }
 
         protected virtual void WriteData(BinaryWriter binaryWriter)

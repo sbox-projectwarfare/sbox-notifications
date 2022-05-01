@@ -1,8 +1,11 @@
+using System;
+
 namespace ProjectWarfare.Notifications
 {
-    [NotificationData("error", typeof(UI.Notifications.ErrorNotification)), Hammer.Skip]
     public partial class ErrorNotificationData : NotificationData
     {
+        public override Type NotificationType => typeof(UI.Notifications.ErrorNotification);
+
         public ErrorNotificationData() : base()
         {
             Title = "Error";
