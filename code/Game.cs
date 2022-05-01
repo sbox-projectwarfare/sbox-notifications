@@ -10,13 +10,13 @@ using System.Linq;
 
 using Sandbox;
 
-using Warfare.Notifications;
-using Warfare.UI;
+using ProjectWarfare.Notifications;
+using ProjectWarfare.UI;
 
 //
 // You don't need to put things in a namespace, but it doesn't hurt.
 //
-namespace Warfare
+namespace ProjectWarfare
 {
     /// <summary>
     /// This is your game class. This is an entity that is created serverside when

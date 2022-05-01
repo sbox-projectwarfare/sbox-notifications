@@ -3,9 +3,9 @@ using System.IO;
 
 using Sandbox;
 
-using Warfare.UI.Notifications;
+using ProjectWarfare.UI.Notifications;
 
-namespace Warfare.Notifications
+namespace ProjectWarfare.Notifications
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class NotificationDataAttribute : LibraryAttribute

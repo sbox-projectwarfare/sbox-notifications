@@ -1,9 +1,9 @@
 using Sandbox;
 using Sandbox.UI;
 
-using Warfare.Notifications;
+using ProjectWarfare.Notifications;
 
-namespace Warfare.UI.Notifications
+namespace ProjectWarfare.UI.Notifications
 {
     public partial class NotificationWrapper : Panel
     {

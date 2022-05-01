@@ -2,7 +2,7 @@
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace Warfare.UI
+namespace ProjectWarfare.UI
 {
     public partial class Hud : HudEntity<RootPanel>
     {

@@ -1,8 +1,8 @@
 ﻿using Sandbox;
 
-using Warfare.Notifications;
+using ProjectWarfare.Notifications;
 
-namespace Warfare
+namespace ProjectWarfare
 {
     public partial class Pawn : AnimEntity
     {

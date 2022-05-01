@@ -24,7 +24,7 @@
  *
 */
 
-namespace Warfare.UI.Notifications
+namespace ProjectWarfare.UI.Notifications
 {
     [Notification("generic"), Hammer.Skip]
     public class GenericNotification : Notification

@@ -30,7 +30,7 @@ using System.Linq;
 
 using Sandbox;
 
-namespace Warfare.Notifications
+namespace ProjectWarfare.Notifications
 {
     /// <summary>
     /// Main class for working with notifications
