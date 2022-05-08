@@ -31,7 +31,7 @@ namespace ProjectWarfare
         {
             if (IsClient)
             {
-                _ = new NotificationStack();
+                _ = new NotificationQueue();
                 _ = new Hud();
             }
         }

@@ -37,7 +37,7 @@ namespace ProjectWarfare
                     {
                         Log.Info("Pressed Slot 1 key on server");
 
-                        NotificationStack.Push(new NotificationData()
+                        NotificationQueue.Enqueue(new NotificationData()
                         {
                             NotificationName = Library.GetAttribute(typeof(UI.Notifications.GenericNotification)).Name,
                             Message = "Notification created by player on server!"
@@ -51,7 +51,7 @@ namespace ProjectWarfare
             if (Input.Released(InputButton.Slot2))
             {
                 Log.Info("Pressed Slot 2 key on client");
-                NotificationStack.Push(new NotificationData()
+                NotificationQueue.Enqueue(new NotificationData()
                 {
                     NotificationName = Library.GetAttribute(typeof(UI.Notifications.HintNotification)).Name,
                     Title = "HINT",
@@ -62,7 +62,7 @@ namespace ProjectWarfare
             if (Input.Released(InputButton.Slot3))
             {
                 Log.Info("Pressed Slot 3 key");
-                NotificationStack.Push(new ErrorNotificationData()
+                NotificationQueue.Enqueue(new ErrorNotificationData()
                 {
                     Message = "Error created by player on client!"
                 });

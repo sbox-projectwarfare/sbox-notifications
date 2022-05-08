@@ -21,7 +21,7 @@ namespace ProjectWarfare.UI.Notifications
         {
             base.Tick();
 
-            NotificationStack notificationStack = NotificationStack.Instance;
+            NotificationQueue notificationStack = NotificationQueue.Instance;
 
             for (int i = ChildrenCount - 1; i < NOTIFICATION_LIMIT - 1; i++)
             {
@@ -30,7 +30,7 @@ namespace ProjectWarfare.UI.Notifications
                     break;
                 }
 
-                NotificationData notificationData = notificationStack.Pop();
+                NotificationData notificationData = notificationStack.Dequeue();
 
                 Notification baseNotification = Library.Create<Notification>(notificationData.NotificationName);
                 baseNotification.Data = notificationData;

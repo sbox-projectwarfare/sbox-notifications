@@ -35,23 +35,17 @@ namespace ProjectWarfare.Notifications
     /// <summary>
     /// Main class for working with notifications
     /// </summary>
-    public partial class NotificationStack
+    public partial class NotificationQueue
     {
-        public static NotificationStack Instance { get; set; }
+        public static NotificationQueue Instance { get; set; }
 
-        private Stack<NotificationData> Stack { get; set; } = new();
+        private Queue<NotificationData> Queue { get; set; } = new();
 
-        public int Count
-        {
-            get => Stack.Count;
-        }
+        public int Count => Queue.Count;
 
-        public IEnumerable<NotificationData> All
-        {
-            get => Stack.AsEnumerable();
-        }
+        public IEnumerable<NotificationData> All => Queue.AsEnumerable();
 
-        public NotificationStack()
+        public NotificationQueue()
         {
             Instance = this;
         }
@@ -70,10 +64,10 @@ namespace ProjectWarfare.Notifications
 
             notificationData.Read(data);
 
-            Instance?.Stack.Push(notificationData);
+            Instance?.Queue.Enqueue(notificationData);
         }
 
-        public static void Push<T>(To to, T notificationData) where T : NotificationData
+        public static void Enqueue<T>(To to, T notificationData) where T : NotificationData
         {
             if (Host.IsServer)
             {
@@ -81,12 +75,12 @@ namespace ProjectWarfare.Notifications
             }
             else
             {
-                Instance?.Stack.Push(notificationData);
+                Instance?.Queue.Enqueue(notificationData);
             }
         }
 
-        public static void Push<T>(T notificationData) where T : NotificationData => Push(To.Everyone, notificationData);
+        public static void Enqueue<T>(T notificationData) where T : NotificationData => Enqueue(To.Everyone, notificationData);
 
-        public NotificationData Pop() => Stack.Pop();
+        public NotificationData Dequeue() => Queue.Dequeue();
     }
 }
