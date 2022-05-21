@@ -60,7 +60,7 @@ namespace Warfare.UI.Notifications
 
                 NotificationData notificationData = notificationStack.Pop();
 
-                Notification baseNotification = Library.Create<Notification>(notificationData.NotificationName);
+                Notification baseNotification = TypeLibrary.Create<Notification>(notificationData.NotificationName);
                 baseNotification.Data = notificationData;
 
                 AddChild(baseNotification);

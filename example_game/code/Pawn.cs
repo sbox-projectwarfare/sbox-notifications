@@ -4,7 +4,7 @@ using Warfare.Notifications;
 
 namespace Warfare
 {
-    public partial class Pawn : AnimEntity
+    public partial class Pawn : AnimatedEntity
     {
         public static Model PlayerModel { get; set; } = Model.Load("models/sbox_props/watermelon/watermelon.vmdl");
 
@@ -39,7 +39,7 @@ namespace Warfare
 
                         NotificationStack.Push(new NotificationData()
                         {
-                            NotificationName = Library.GetAttribute(typeof(UI.Notifications.GenericNotification)).Name,
+                            NotificationName = TypeLibrary.GetDescription(typeof(UI.Notifications.GenericNotification)).Name,
                             Message = "Notification created by player on server!"
                         });
                     }
@@ -53,7 +53,7 @@ namespace Warfare
                 Log.Info("Pressed Slot 2 key on client");
                 NotificationStack.Push(new NotificationData()
                 {
-                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.HintNotification)).Name,
+                    NotificationName = TypeLibrary.GetDescription(typeof(UI.Notifications.HintNotification)).Name,
                     Title = "HINT",
                     Message = "Hint created by player on client!"
                 });
@@ -64,7 +64,7 @@ namespace Warfare
                 Log.Info("Pressed Slot 3 key");
                 NotificationStack.Push(new NotificationData()
                 {
-                    NotificationName = Library.GetAttribute(typeof(UI.Notifications.ErrorNotification)).Name,
+                    NotificationName = TypeLibrary.GetDescription(typeof(UI.Notifications.ErrorNotification)).Name,
                     Title = "OMG! New Notification!!!",
                     Message = "Custom notification created by player on client!"
                 });

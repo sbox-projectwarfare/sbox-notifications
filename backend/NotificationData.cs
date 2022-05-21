@@ -59,13 +59,13 @@ namespace Warfare.Notifications
 
         public NotificationData()
         {
-            LibraryAttribute libraryAttribute = Library.GetAttribute(GetType());
+            LibraryAttribute libraryAttribute = TypeLibrary.GetDescription(GetType());
 
             Name = libraryAttribute.Name;
 
             if (libraryAttribute is NotificationDataAttribute notificationDataAttribute)
             {
-                LibraryAttribute attribute = Library.GetAttribute(notificationDataAttribute.NotificationType);
+                LibraryAttribute attribute = TypeLibrary.GetDescription(notificationDataAttribute.NotificationType);
 
                 if (attribute is NotificationAttribute)
                 {

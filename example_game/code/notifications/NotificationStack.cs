@@ -68,7 +68,7 @@ namespace Warfare.Notifications
                 return;
             }
 
-            NotificationData notificationData = Library.Create<NotificationData>(notificationDataType);
+            NotificationData notificationData = TypeLibrary.Create<NotificationData>(notificationDataType);
 
             notificationData.Read(data);
 
